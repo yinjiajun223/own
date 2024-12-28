@@ -9,8 +9,8 @@
 			"@/layouts/*": ["src/layouts/*.astro"],
 			"@/data/*": ["src/data/*"],
 			"@/styles": ["src/styles/"],
-			"@/assets/*": ["src/assets/*"],
-		}
+			"@/assets/*": ["src/assets/*"]
+		},
 	},
 	"exclude": ["node_modules", "**/node_modules/*", ".vscode", "dist"]
 }
