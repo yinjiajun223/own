@@ -10,4 +10,4 @@ export interface CardData {
   date?: string;
   mark?: boolean;
   index?: number;
-} 
+}
