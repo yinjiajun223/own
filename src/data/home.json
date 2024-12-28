@@ -1,86 +1,11 @@
-
 [
-	{
-		"id": "1",
-		"cover": "/assets/cover/cover-3d-logo.jpg",
-		"title": "【示例】Blender Logo",
-		"desc": "Blender Logo 设计",
-		"category": "3d",
-		"tag": "3D",
-		"date": "2024-07-05"
-	},
-	{
-		"id": "2",
-		"cover": "/assets/cover/pexels-tink-s-838159870-19489123.jpg",
-		"title": "【示例】阿勒泰",
-		"desc": "阿勒泰旅行记录",
-		"category": "photography",
-		"tag": "摄影",
-		"date": "2024-07-05"
-	},
-	{
-		"id": "3",
-		"cover": "/assets/cover/pexels-brett-sayles-1115175.jpg",
-		"title": "【示例】街景",
-		"desc": "",
-		"category": "photography",
-		"tag": "摄影",
-		"date": "2024-07-05"
-	},
-	{
-		"id": "4",
-		"cover": "/assets/cover/cover-3d-cloud.jpg",
-		"title": "【示例】Blender 云服务场景",
-		"desc": "Blender, Cloud",
-		"category": "3d",
-		"tag": "3D",
-		"date": "2024-07-05"
-	},
-	{
-		"id": "6",
-		"cover": "/assets/cover/cover-travel.jpg",
-		"title": "【示例】Tink 旅行生活日记",
-		"desc": "Mobile 网站",
-		"url": "https://travellife.zeabur.app/",
-		"detail": "/detail/tinklife",
-		"category": "ui",
-		"tag": "UI",
-		"date": "2024-10-07"
-	},
-	{
-		"id": "7",
-		"cover": "/assets/cover/cover-free-3d-valentines-assets.jpg",
-		"title": "【示例】Valentine's Day 3D Icons",
-		"desc": "Free 3D Icons Pack",
-		"url": "https://web.606design.art/landings/004-free-3d-valentines-assets/",
-		"detail": "/detail/free-3d-valentines-assets/",
-		"category":  "web,3d",
-		"tag": "3D",
-		"date": "2024-10-8"
-	},
-	{
-		"id": "8",
-		"cover": "/assets/cover/cover-todo.jpg",
-		"title": "【示例】TodoList 网页版",
-		"desc": "一款优秀的设计简洁的 Todolist 网页版本",
-		"url": "https://ricocc.com/todo/",
-		"detail": "/detail/todo",
-		"category": "web",
-		"tag": "Web",
-		"date": "2024-10-20",
-		"mark": true
-	},
-	{
-		"id": "9",
-		"cover": "/assets/cover/cover-606design.jpg",
-		"title": "【示例】606 网页灵感",
-		"desc": "606 Web Inspiration",
-		"url": "https://www.606design.art/",
-		"detail":  "https://www.606design.art/",
-		"category": "web",
-		"tag": "Web",
-		"date": "2024-10-20",
-		"mark": true
-	}
-
+  {
+    "id": "1",
+    "cover": "/assets/cover/cover-3d-logo.jpg",
+    "title": "【示例】Blender Logo",
+    "desc": "Blender Logo 设计",
+    "category": "3d",
+    "tag": "3D",
+    "date": "2024-07-05"
+  }
 ]
