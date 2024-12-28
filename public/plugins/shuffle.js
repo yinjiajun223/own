@@ -693,7 +693,7 @@
    * @return {string} The hyphenated string.
    */
   function hyphenate(str) {
-    return str.replace(/([A-Z])/g, (str, m1) => `-${m1.toLowerCase()}`);
+    return str.replace(/([A-Z])/g, (_str, m1) => `-${m1.toLowerCase()}`);
   }
 
   function arrayUnique(x) {

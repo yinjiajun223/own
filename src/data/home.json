@@ -4,8 +4,9 @@
     "cover": "/assets/cover/cover-3d-logo.jpg",
     "title": "【示例】Blender Logo",
     "desc": "Blender Logo 设计",
-    "category": "3d",
+    "category": "tech",
     "tag": "3D",
-    "date": "2024-07-05"
+    "date": "2024-07-05",
+    "mark": true
   }
 ]

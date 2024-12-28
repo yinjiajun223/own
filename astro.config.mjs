@@ -25,7 +25,7 @@ export default defineConfig({
     wrap: true,
     }
   },
-  site: 'https://blog-template.606design.art/',
+  site: 'https://yinjiajun.cn/',
   integrations: [sitemap()],
   css: {
     preprocessorOptions: {

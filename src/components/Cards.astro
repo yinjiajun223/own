@@ -1,29 +1,22 @@
 ---
 import Filter from '../components/Filter.astro';
-// 引入 JSON 文件并加载数据
-// const cardJsonString = '/assets/data/card.json';
-// const cardData = JSON.parse(cardJsonString);
-// 使用 JSON 数据
-// import cardData from '../components/card.json';
+import type { CardData } from '../data/types';
 import cardData from '../data/home.json';
-const cards = [];
-for (const [index,item] of cardData.entries()) {
-  const card = {
-    id: item.id || index,
-    title: item.title,
-    cover: item.cover || "",
-    description: item.desc || "",
-    url: item.url || "",
-    detail: item.detail || "",
-    category: item.category || "other",
-    tag: item.tag || "",
-    date: item.date || "",
-    mark: item.mark|| "",
-    index: index + 1,
-  };
-  cards.push(card);
-}
-// const cardFullData= JSON.stringify(cards);
+
+const cards: CardData[] = cardData.map((item: CardData, index: number) => ({
+  id: item.id || index,
+  title: item.title,
+  cover: item.cover || "",
+  description: item.desc || "",
+  url: item.url || "",
+  detail: item.detail || "",
+  category: item.category || "other",
+  tag: item.tag || "",
+  date: item.date || "",
+  mark: item.mark || false,
+  index: index + 1,
+}));
+
 const count = cards.length;
 ---
 <Filter count={count} />
@@ -54,7 +47,7 @@ const count = cards.length;
                             {card.mark && <span class="tag-original">推荐</span>}   {card.title}
                           </a>
                           <div class="card-info">
-                            {card.description}
+                            {card.desc}
                           </div>
                       </div>
                      {card.detail && <a href={card.detail ? card.detail : "javascript:void(0)" } class="card-link card-link__go js-gotip" target={card.detail ? "_blank" : "_self"}>
