@@ -3,6 +3,8 @@ import { defineConfig } from "astro/config";
 
 import sitemap from "@astrojs/sitemap";
 
+import tailwind from "@astrojs/tailwind";
+
 export default defineConfig({
   //   typescript: false,
   // ---
@@ -24,8 +26,12 @@ export default defineConfig({
       wrap: true,
     },
   },
+  server: {
+    host: "0.0.0.0",
+    port: 3000,
+  },
   site: "https://yinjiajun.cn/",
-  integrations: [sitemap()],
+  integrations: [sitemap(), tailwind()],
   css: {
     preprocessorOptions: {
       sass: {
