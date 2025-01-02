@@ -4,9 +4,7 @@ import DetailPostLayout from "../../layouts/DetailPostLayout.astro";
 import PostHeader from "../../components/PostHeader.astro";
 import CallToAction from "../../components/CallToAction.astro";
 // 导入 Image 组件和图像
-const images = await Astro.glob(
-  "../../assets/projects/travel/*.{jpg,png,webp}",
-);
+const images = await Astro.glob("../../assets/projects/travel/*.{jpg,png,webp}");
 ---
 
 <DetailPostLayout
@@ -25,19 +23,12 @@ const images = await Astro.glob(
         <div class="row desc">
           <div class="col-1a">
             <h3 class="post-title">技术工具选择：Figma & Vue</h3>
-            <p class="post-desc">
-              移动端网站。自行开发的项目，独立负责所有原型、设计和开发工作，以及上线和维护。
-            </p>
+            <p class="post-desc">移动端网站。自行开发的项目，独立负责所有原型、设计和开发工作，以及上线和维护。</p>
           </div>
           <div class="col-1a">
             <p>
               <div class="btn">
-                <CallToAction
-                  href="https://travellife.zeabur.app/"
-                  target="_blank"
-                >
-                  访问站点
-                </CallToAction>
+                <CallToAction href="https://travellife.zeabur.app/" target="_blank"> 访问站点 </CallToAction>
               </div>
             </p>
           </div>
@@ -48,12 +39,7 @@ const images = await Astro.glob(
       {
         images.map((img, index) => (
           <picture class="picture">
-            <Image
-              src={img.default}
-              alt={`Image ${index + 1}`}
-              loading="lazy"
-              decoding="async"
-            />
+            <Image src={img.default} alt={`Image ${index + 1}`} loading="lazy" decoding="async" />
           </picture>
         ))
       }

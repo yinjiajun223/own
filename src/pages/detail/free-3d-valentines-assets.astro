@@ -4,9 +4,7 @@ import DetailHeader from "../../components/DetailHeader.astro";
 import DetailPostLayout from "../../layouts/DetailPostLayout.astro";
 import CallToAction from "../../components/CallToAction.astro";
 
-const images = await Astro.glob(
-  "../../assets/projects/free-3d-valentines-assets/*.{jpg,png,webp}",
-);
+const images = await Astro.glob("../../assets/projects/free-3d-valentines-assets/*.{jpg,png,webp}");
 ---
 
 <DetailPostLayout
@@ -25,41 +23,23 @@ const images = await Astro.glob(
       <div class="content">
         <div class="row desc">
           <div class="col-1a">
-            <h3 class="post-title" style="margin-bottom:1em;">
-              Free 3D Icons Pack - Valentine's Day
-            </h3>
+            <h3 class="post-title" style="margin-bottom:1em;">Free 3D Icons Pack - Valentine's Day</h3>
 
-            <p>
-              Those Valentine's Day 3D Icons are suitable for UI design, Web
-              design, Landing pages, and more.
-            </p>
+            <p>Those Valentine's Day 3D Icons are suitable for UI design, Web design, Landing pages, and more.</p>
           </div>
           <p class="post-desc">
-            - 3D Blender Files (Fully customizable) - White and Pink Color
-            Styles Files - High Resolution Images 3000x3000 (PNG)
+            - 3D Blender Files (Fully customizable) - White and Pink Color Styles Files - High Resolution Images 3000x3000 (PNG)
           </p>
         </div>
         <div class="col-1a">
           <p style="margin-top: 12px;">👉 Download:</p>
           <div class="btn btn-grid" style="margin-top: 12px;">
-            <CallToAction
-              target="_blank"
-              href="http://web.606design.art/landings/004-free-3d-valentines-assets/"
-              >Landing Page
-            </CallToAction>
-            <CallToAction
-              target="_blank"
-              href="https://www.figma.com/community/file/1363451172790940214/free-3d-icons-valentines-day/"
+            <CallToAction target="_blank" href="http://web.606design.art/landings/004-free-3d-valentines-assets/">Landing Page </CallToAction>
+            <CallToAction target="_blank" href="https://www.figma.com/community/file/1363451172790940214/free-3d-icons-valentines-day/"
               >Open Figma</CallToAction
             >
-            <CallToAction
-              target="_blank"
-              href="https://drive.google.com/drive/folders/171VScCkzSfubCOp_wQRnyMmUTBWGPJEe"
-              >Drive
-            </CallToAction>
-            <CallToAction
-              target="_blank"
-              href="https://pan.baidu.com/s/16-P3vcHO3gKygIQzE-uMhg?pwd=0220"
+            <CallToAction target="_blank" href="https://drive.google.com/drive/folders/171VScCkzSfubCOp_wQRnyMmUTBWGPJEe">Drive </CallToAction>
+            <CallToAction target="_blank" href="https://pan.baidu.com/s/16-P3vcHO3gKygIQzE-uMhg?pwd=0220"
               >百度网盘 <span>(提取码：0220)</span></CallToAction
             >
           </div>
@@ -71,12 +51,7 @@ const images = await Astro.glob(
     {
       images.map((img, index) => (
         <picture class="picture">
-          <Image
-            src={img.default}
-            alt={`Image ${index + 1}`}
-            loading="lazy"
-            decoding="async"
-          />
+          <Image src={img.default} alt={`Image ${index + 1}`} loading="lazy" decoding="async" />
         </picture>
       ))
     }

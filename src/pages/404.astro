@@ -4,11 +4,7 @@ import CallToAction from "../components/CallToAction.astro";
 import { notFoundTdk } from "../data/content";
 ---
 
-<BlogPostLayout
-  title={notFoundTdk.title || ""}
-  description={notFoundTdk.description || ""}
-  keywords={notFoundTdk.keywords || ""}
->
+<BlogPostLayout title={notFoundTdk.title || ""} description={notFoundTdk.description || ""} keywords={notFoundTdk.keywords || ""}>
   <div class="post">
     <main class="post-wrapper 404">
       <section>

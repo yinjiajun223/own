@@ -11,15 +11,10 @@ import NavMobile from "../components/NavMobile.astro";
       <div class="site-title">
         <a href="/" class="author">
           <figure class="avatar">
-            <img
-              class="avatar__img"
-              src={nav.avatar}
-              alt=""
-              draggable="false"
-            />
+            <img class="avatar__img" src={nav.avatar} alt="" draggable="false" />
           </figure>
         </a>
-        <div>影的小陋室</div>
+        <div id="ying">影的小陋室</div>
       </div>
     </div>
     <div id="menu-content">
@@ -29,16 +24,11 @@ import NavMobile from "../components/NavMobile.astro";
             nav.items?.map((item) => (
               <li>
                 <a
-                  aria-current={
-                    Astro.url.pathname === item.href ? "page" : undefined
-                  }
+                  aria-current={Astro.url.pathname === item.href ? "page" : undefined}
                   class:list={[
                     "link",
                     {
-                      active:
-                        Astro.url.pathname === item.href ||
-                        (item.href !== "/" &&
-                          Astro.url.pathname.startsWith(item.href)),
+                      active: Astro.url.pathname === item.href || (item.href !== "/" && Astro.url.pathname.startsWith(item.href)),
                     },
                   ]}
                   href={item.href}
@@ -91,6 +81,10 @@ import NavMobile from "../components/NavMobile.astro";
     }
   }
   customElements.define("menu-button", MenuButton);
+
+  document.getElementById("ying")?.addEventListener("click", () => {
+    window.location.href = "/";
+  });
 </script>
 
 <style>

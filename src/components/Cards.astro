@@ -8,7 +8,6 @@ const cards: CardData[] = cardData.map((item: CardData, index: number) => ({
   title: item.title,
   cover: item.cover || "",
   description: item.desc || "",
-  url: item.url || "",
   detail: item.detail || "",
   category: item.category || "other",
   tag: item.tag || "",
@@ -41,19 +40,9 @@ const count = cards.length;
               </div>
             </div>
             <div class="card-body">
-              <a
-                href={card.detail ? card.detail : "javascript:void(0)"}
-                class="card-figure"
-                target={card.detail ? "_blank" : "_self"}
-              >
+              <a href={card.detail ? card.detail : "javascript:void(0)"} class="card-figure" target={card.detail ? "_blank" : "_self"}>
                 (
-                <img
-                  class="card-figure__img lazy"
-                  src={card.cover}
-                  loading="lazy"
-                  alt="Loading Animations"
-                />
-                )
+                <img class="card-figure__img lazy" src={card.cover} loading="lazy" alt="Loading Animations" />)
               </a>
             </div>
             <div class="card-footer">
@@ -63,8 +52,7 @@ const count = cards.length;
                   target={card.detail ? "_blank" : "_self"}
                   class="card-name card-item__title"
                 >
-                  {card.mark && <span class="tag-original">推荐</span>}{" "}
-                  {card.title}
+                  {card.mark && <span class="tag-original">推荐</span>} {card.title}
                 </a>
                 <div class="card-info">{card.desc}</div>
               </div>
@@ -86,9 +74,7 @@ const count = cards.length;
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     // 检查是否存在带有类名 '.card-figure__video' 的元素
-    const videos = document.querySelectorAll(
-      ".card-figure__video",
-    ) as NodeListOf<HTMLVideoElement>;
+    const videos = document.querySelectorAll(".card-figure__video") as NodeListOf<HTMLVideoElement>;
 
     // 如果存在视频元素，则执行相关操作
     if (videos.length > 0) {

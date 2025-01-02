@@ -1,16 +1,29 @@
 {
+  // 继承 astro 的严格 TypeScript 配置
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "strictNullChecks": true,
+    // 关闭隐式 any 检查
+    "noImplicitAny": false,
+    // 关闭严格的空值检查
+    "strictNullChecks": false,
+    // 设置基础路径为当前目录
     "baseUrl": ".",
+    // 要求使用 import type 进行类型导入
     "verbatimModuleSyntax": true,
+    // 配置路径别名，方便导入模块
     "paths": {
+      // 组件路径别名
       "@/components/*": ["src/components/*.astro"],
+      // 布局路径别名
       "@/layouts/*": ["src/layouts/*.astro"],
+      // 数据文件路径别名
       "@/data/*": ["src/data/*"],
+      // 样式文件路径别名
       "@/styles": ["src/styles/"],
+      // 资源文件路径别名
       "@/assets/*": ["src/assets/*"]
     }
   },
+  // 排除不需要 TypeScript 编译的文件夹
   "exclude": ["node_modules", "**/node_modules/*", ".vscode", "dist"]
 }

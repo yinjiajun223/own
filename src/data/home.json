@@ -1,12 +1,13 @@
 [
   {
     "id": "1",
-    "cover": "/assets/cover/cover-3d-logo.jpg",
-    "title": "【示例】Blender Logo",
-    "desc": "Blender Logo 设计",
+    "cover": "/assets/cover/audio.png",
+    "title": "原生音频API音频可视化",
+    "desc": "原生音频API",
     "category": "tech",
-    "tag": "3D",
-    "date": "2024-07-05",
-    "mark": true
+    "tag": "HTML",
+    "date": "2025-01-02",
+    "mark": true,
+    "detail": "https://demo.yinjiajun.cn/audio.html"
   }
 ]

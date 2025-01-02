@@ -132,8 +132,7 @@ interface PageDescription {
   about?: string;
 }
 export const pageDescription: PageDescription = {
-  index:
-    "这里是影的小陋室，在这里可以了解更多关于我的信息，或者阅读我的一些文章和笔记。",
+  index: "这里是影的小陋室，在这里可以了解更多关于我的信息，或者阅读我的一些文章和笔记。",
   project: "这是我的部分项目展示",
   about: "WEB前端开发工程师",
   blog: "这是我的个人笔记和想法， 希望你能够获得帮助！",

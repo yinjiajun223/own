@@ -15,16 +15,11 @@ import { nav } from "../data/content";
           nav.items?.map((item) => (
             <li class="m-menu-li">
               <a
-                aria-current={
-                  Astro.url.pathname === item.href ? "page" : undefined
-                }
+                aria-current={Astro.url.pathname === item.href ? "page" : undefined}
                 class:list={[
                   "m-menu__link l",
                   {
-                    active:
-                      Astro.url.pathname === item.href ||
-                      (item.href !== "/" &&
-                        Astro.url.pathname.startsWith(item.href)),
+                    active: Astro.url.pathname === item.href || (item.href !== "/" && Astro.url.pathname.startsWith(item.href)),
                   },
                 ]}
                 href={item.href}
@@ -46,16 +41,12 @@ import { nav } from "../data/content";
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const toggle = () => {
-      document
-        .querySelector(".hamburger-toggle")
-        ?.classList.toggle("close-line");
+      document.querySelector(".hamburger-toggle")?.classList.toggle("close-line");
       document.querySelector(".m-nav")?.classList.toggle("is-active");
       document.querySelector(".m-nav-mask")?.classList.toggle("is-active");
     };
 
-    document
-      .querySelector(".hamburger-toggle")
-      ?.addEventListener("click", toggle);
+    document.querySelector(".hamburger-toggle")?.addEventListener("click", toggle);
     document.querySelector(".m-nav-mask")?.addEventListener("click", toggle);
   });
 </script>
