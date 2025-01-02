@@ -10,36 +10,15 @@
   --gradient-stop-1: var(--accent-light);
   --gradient-stop-2: var(--accent-regular);
   --gradient-stop-3: var(--accent-dark);
-  --gradient-subtle: linear-gradient(
-    150deg,
-    var(--color-900) 19%,
-    var(--color-999) 150%
-  );
-  --gradient-accent: linear-gradient(
-    150deg,
-    var(--gradient-stop-1),
-    var(--gradient-stop-2),
-    var(--gradient-stop-3)
-  );
-  --gradient-accent-orange: linear-gradient(
-    150deg,
-    #ca7879,
-    var(--accent-regular),
-    var(--accent-dark)
-  );
-  --gradient-stroke: linear-gradient(
-    180deg,
-    var(--color-900),
-    var(--color-700)
-  );
-  --shadow-sm: 0px 6px 3px rgba(9, 11, 17, 0.01),
-    0px 4px 2px rgba(9, 11, 17, 0.01), 0px 2px 2px rgba(9, 11, 17, 0.02),
+  --gradient-subtle: linear-gradient(150deg, var(--color-900) 19%, var(--color-999) 150%);
+  --gradient-accent: linear-gradient(150deg, var(--gradient-stop-1), var(--gradient-stop-2), var(--gradient-stop-3));
+  --gradient-accent-orange: linear-gradient(150deg, #ca7879, var(--accent-regular), var(--accent-dark));
+  --gradient-stroke: linear-gradient(180deg, var(--color-900), var(--color-700));
+  --shadow-sm: 0px 6px 3px rgba(9, 11, 17, 0.01), 0px 4px 2px rgba(9, 11, 17, 0.01), 0px 2px 2px rgba(9, 11, 17, 0.02),
     0px 0px 1px rgba(9, 11, 17, 0.03);
-  --shadow-md: 0px 28px 11px rgba(9, 11, 17, 0.01),
-    0px 16px 10px rgba(9, 11, 17, 0.03), 0px 7px 7px rgba(9, 11, 17, 0.05),
+  --shadow-md: 0px 28px 11px rgba(9, 11, 17, 0.01), 0px 16px 10px rgba(9, 11, 17, 0.03), 0px 7px 7px rgba(9, 11, 17, 0.05),
     0px 2px 4px rgba(9, 11, 17, 0.06);
-  --shadow-lg: 0px 62px 25px rgba(9, 11, 17, 0.01),
-    0px 35px 21px rgba(9, 11, 17, 0.05), 0px 16px 16px rgba(9, 11, 17, 0.1),
+  --shadow-lg: 0px 62px 25px rgba(9, 11, 17, 0.01), 0px 35px 21px rgba(9, 11, 17, 0.05), 0px 16px 16px rgba(9, 11, 17, 0.1),
     0px 4px 9px rgba(9, 11, 17, 0.12);
 }
 :root {
@@ -99,15 +78,11 @@
   --radius: 6px;
   --radius-normal: 8px;
   --radius-large: 12px;
-  --font-system: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC",
-    "Lantinghei SC", "Microsoft YaHei", "HanHei SC", "Helvetica Neue",
-    "Open Sans", "Hiragino Sans GB", 微软雅黑, STHeiti, "WenQuanYi Micro Hei",
-    Arial, SimSun, sans-serif;
-  --font-body: "Inter", "Noto Sans SC", system-ui, -apple-system,
-    BlinkMacSystemFont, "PingFang SC", "MiSans", "Lantinghei SC",
-    "Noto Sans SC", "Microsoft YaHei", "HanHei SC", "Helvetica Neue",
-    "Open Sans", "Hiragino Sans GB", 微软雅黑, STHeiti, "WenQuanYi Micro Hei",
-    Arial, SimSun, sans-serif;
+  --font-system: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Lantinghei SC", "Microsoft YaHei", "HanHei SC", "Helvetica Neue",
+    "Open Sans", "Hiragino Sans GB", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", Arial, SimSun, sans-serif;
+  --font-body: "Inter", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "MiSans", "Lantinghei SC", "Noto Sans SC",
+    "Microsoft YaHei", "HanHei SC", "Helvetica Neue", "Open Sans", "Hiragino Sans GB", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", Arial, SimSun,
+    sans-serif;
   --font-brand: "Inter", "Noto Sans SC", var(--font-system);
   --font-type: "Special Elite", var(--font-system);
   --theme-transition: 0.25s ease-in-out;
@@ -190,31 +165,14 @@
   --accent-text-over: var(--color-0);
   --link-color: var(--accent-dark);
   --gradient-stop-1: #4c11c6;
-  --gradient-subtle: linear-gradient(
-    150deg,
-    var(--color-900) 19%,
-    var(--color-999) 81%
-  );
-  --gradient-accent-orange: linear-gradient(
-    150deg,
-    #ca7879,
-    var(--accent-regular),
-    var(--accent-light)
-  );
-  --gradient-stroke: linear-gradient(
-    180deg,
-    var(--color-600),
-    var(--color-800)
-  );
-  --shadow-sm: 0px 6px 3px rgba(255, 255, 255, 0.01),
-    0px 4px 2px rgba(255, 255, 255, 0.01),
-    0px 2px 2px rgba(255, 255, 255, 0.02), 0px 0px 1px rgba(255, 255, 255, 0.03);
-  --shadow-md: 0px 28px 11px rgba(255, 255, 255, 0.01),
-    0px 16px 10px rgba(255, 255, 255, 0.03),
-    0px 7px 7px rgba(255, 255, 255, 0.05), 0px 2px 4px rgba(255, 255, 255, 0.06);
-  --shadow-lg: 0px 62px 25px rgba(255, 255, 255, 0.01),
-    0px 35px 21px rgba(255, 255, 255, 0.05),
-    0px 16px 16px rgba(255, 255, 255, 0.1),
+  --gradient-subtle: linear-gradient(150deg, var(--color-900) 19%, var(--color-999) 81%);
+  --gradient-accent-orange: linear-gradient(150deg, #ca7879, var(--accent-regular), var(--accent-light));
+  --gradient-stroke: linear-gradient(180deg, var(--color-600), var(--color-800));
+  --shadow-sm: 0px 6px 3px rgba(255, 255, 255, 0.01), 0px 4px 2px rgba(255, 255, 255, 0.01), 0px 2px 2px rgba(255, 255, 255, 0.02),
+    0px 0px 1px rgba(255, 255, 255, 0.03);
+  --shadow-md: 0px 28px 11px rgba(255, 255, 255, 0.01), 0px 16px 10px rgba(255, 255, 255, 0.03), 0px 7px 7px rgba(255, 255, 255, 0.05),
+    0px 2px 4px rgba(255, 255, 255, 0.06);
+  --shadow-lg: 0px 62px 25px rgba(255, 255, 255, 0.01), 0px 35px 21px rgba(255, 255, 255, 0.05), 0px 16px 16px rgba(255, 255, 255, 0.1),
     0px 4px 9px rgba(255, 255, 255, 0.12);
 }
 .darkmode--activated {
@@ -471,13 +429,7 @@ p {
   overflow: hidden;
 }
 .text-gradient {
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    color-stop(15%, #f29914),
-    color-stop(76%, #0bbbe3)
-  );
+  background: -webkit-gradient(linear, left top, right top, color-stop(15%, #f29914), color-stop(76%, #0bbbe3));
   background: linear-gradient(90deg, #f29914 15%, #0bbbe3 76%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -499,18 +451,8 @@ p {
   width: 100%;
   height: 2px;
   background-repeat: no-repeat;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    color-stop(45%, rgb(48, 48, 48)),
-    color-stop(55%, rgba(48, 48, 48, 0.3))
-  );
-  background-image: linear-gradient(
-    to right,
-    rgb(48, 48, 48) 45%,
-    rgba(48, 48, 48, 0.3) 55%
-  );
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(45%, rgb(48, 48, 48)), color-stop(55%, rgba(48, 48, 48, 0.3)));
+  background-image: linear-gradient(to right, rgb(48, 48, 48) 45%, rgba(48, 48, 48, 0.3) 55%);
   background-size: 220% 100%;
   background-position: 100% 50%;
   -webkit-transition: 0.3s ease-out;

@@ -26,16 +26,13 @@ const images = await Astro.glob("../../assets/projects/todo/*.{jpg,png,webp}");
             <div class="col-1a">
               <h3 class="post-title">Todo 1.0 - Figma & Vue 2.x</h3>
               <p class="post-desc">
-                一款优秀的设计简洁的 Todolist
-                网页版本应用，无需注册，数据存储在浏览器本地缓存。技术基于Vue2.x，提供工作和生活辅助！
+                一款优秀的设计简洁的 Todolist 网页版本应用，无需注册，数据存储在浏览器本地缓存。技术基于Vue2.x，提供工作和生活辅助！
               </p>
             </div>
             <div class="col-1a">
               <p>
                 <div class="btn">
-                  <CallToAction href="https://ricocc.com/todo/" target="_blank">
-                    访问站点
-                  </CallToAction>
+                  <CallToAction href="https://ricocc.com/todo/" target="_blank"> 访问站点 </CallToAction>
                 </div>
               </p>
             </div>
@@ -46,12 +43,7 @@ const images = await Astro.glob("../../assets/projects/todo/*.{jpg,png,webp}");
         {
           images.map((img, index) => (
             <picture class="gsap-picture">
-              <Image
-                src={img.default}
-                alt={`Image ${index + 1}`}
-                loading="lazy"
-                decoding="async"
-              />
+              <Image src={img.default} alt={`Image ${index + 1}`} loading="lazy" decoding="async" />
             </picture>
           ))
         }
