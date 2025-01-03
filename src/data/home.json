@@ -1,12 +1,22 @@
 [
   {
     "id": "1",
+    "cover": "/assets/cover/grid-animation.png",
+    "title": "Grid网格动画",
+    "desc": "Grid网格动画",
+    "category": "tech",
+    "tag": "CSS",
+    "date": "2024-03-08",
+    "detail": "https://demo.yinjiajun.cn/grid-animation.html"
+  },
+  {
+    "id": "2",
     "cover": "/assets/cover/audio.png",
     "title": "原生音频API音频可视化",
     "desc": "原生音频API",
     "category": "tech",
     "tag": "HTML",
-    "date": "2025-01-02",
+    "date": "2024-03-10",
     "mark": true,
     "detail": "https://demo.yinjiajun.cn/audio.html"
   }
