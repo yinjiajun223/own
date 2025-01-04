@@ -1,6 +1,5 @@
 [
   {
-    "id": "1",
     "cover": "/assets/cover/grid-animation.png",
     "title": "Grid网格动画",
     "desc": "Grid网格动画",
@@ -10,7 +9,6 @@
     "detail": "https://demo.yinjiajun.cn/grid-animation.html"
   },
   {
-    "id": "2",
     "cover": "/assets/cover/audio.png",
     "title": "原生音频API音频可视化",
     "desc": "原生音频API",
@@ -19,5 +17,15 @@
     "date": "2024-03-10",
     "mark": true,
     "detail": "https://demo.yinjiajun.cn/audio.html"
+  },
+  {
+    "cover": "/assets/cover/drag.png",
+    "title": "拖拽API",
+    "desc": "拖拽API实现课程表",
+    "category": "tech",
+    "tag": "JS",
+    "date": "2024-03-12",
+    "mark": false,
+    "detail": "https://demo.yinjiajun.cn/drag.html"
   }
 ]

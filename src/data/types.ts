@@ -1,5 +1,4 @@
 export interface CardData {
-  id: string | number;
   title: string;
   cover?: string;
   desc?: string;
