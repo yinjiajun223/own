@@ -3,18 +3,21 @@ import Filter from "../components/Filter.astro";
 import type { CardData } from "../data/types";
 import cardData from "../data/home.json";
 
-const cards: CardData[] = cardData.map((item: CardData, index: number) => ({
-  id: item.id || index,
-  title: item.title,
-  cover: item.cover || "",
-  description: item.desc || "",
-  detail: item.detail || "",
-  category: item.category || "other",
-  tag: item.tag || "",
-  date: item.date || "",
-  mark: item.mark || false,
-  index: index + 1,
-}));
+//根据mark排序 mark为true的排在前面
+const cards: CardData[] = cardData
+  .sort((i) => (i.mark ? -1 : 1))
+  .map((item: CardData, index: number) => ({
+    id: index,
+    title: item.title,
+    cover: item.cover || "",
+    description: item.desc || "",
+    detail: item.detail || "",
+    category: item.category || "other",
+    tag: item.tag || "",
+    date: item.date || "",
+    mark: item.mark || false,
+    index: index + 1,
+  }));
 
 const count = cards.length;
 ---
@@ -24,7 +27,7 @@ const count = cards.length;
   <div class="js-shuffle-sizer">
     <div class="card-list my-shuffle-container" id="js-shuffle">
       {
-        cards.reverse().map((card) => (
+        cards.map((card) => (
           <div
             class="card-item col-xs-1a col-md-2a col-lg-3a col-xxl-4a"
             data-groups={JSON.stringify(card.category)}
