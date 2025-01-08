@@ -45,7 +45,6 @@
 │   ├── components/     # 组件
 │   ├── content/        # 博客内容
 │   ├── data/          # 网站配置数据
-│   ├── effects/       # 特效组件
 │   ├── layouts/       # 布局模板
 │   └── pages/         # 页面
 ├── astro.config.mjs    # Astro 配置
