@@ -50,7 +50,7 @@ const getPointerPos = (ev) => {
   let posy = 0;
 
   // If the event is not provided, use the global window event object.
-  if (!ev) ev = window.event;
+  if (!ev) return;
 
   // Handle touch events
   if (ev.touches) {
