@@ -34,7 +34,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ## 图片
 
-![alt text](/public/assets/cover/grid-animation.png)
+![alt text](/assets/cover/grid-animation.png)
 
 ## 引用
 

@@ -4,19 +4,19 @@ import type { CardData } from "../data/types";
 import cardData from "../data/home.json";
 
 //根据mark排序 mark为true的排在前面
+// 添加原始索引，并根据mark排序，mark为true的排在前面 -- tip（避免页面刷新后排序跟上次不同步）
 const cards: CardData[] = cardData
-  .sort((i) => (i.mark ? -1 : 1))
-  .map((item: CardData, index: number) => ({
-    id: index,
-    title: item.title,
-    cover: item.cover || "",
-    description: item.desc || "",
-    detail: item.detail || "",
-    category: item.category || "other",
-    tag: item.tag || "",
-    date: item.date || "",
+  .map((item, index) => ({ ...item, originalIndex: index })) // 添加原始索引
+  .sort((a, b) => {
+    if (a.mark === b.mark) {
+      return b.originalIndex - a.originalIndex; // 按原始索引排序，保持稳定
+    }
+    return a.mark ? -1 : 1; // mark 为 true 的排在前面
+  })
+  .map((item, index) => ({
+    ...item,
     mark: item.mark || false,
-    index: index + 1,
+    index: index + 1, // 重新计算新的索引
   }));
 
 const count = cards.length;
