@@ -44,8 +44,13 @@ const count = cards.length;
             </div>
             <div class="card-body">
               <a href={card.detail ? card.detail : "javascript:void(0)"} class="card-figure" target={card.detail ? "_blank" : "_self"}>
-                (
-                <img class="card-figure__img lazy" src={card.cover} loading="lazy" alt="Loading Animations" />)
+                {card?.cover ? (
+                  <>
+                    <img class="card-figure__img lazy" src={card.cover} loading="lazy" alt="Loading Animations" />
+                  </>
+                ) : (
+                  <div class="card-figure__img lazy no-cover">{card["cover-desc"]}</div>
+                )}
               </a>
             </div>
             <div class="card-footer">
@@ -393,6 +398,13 @@ const count = cards.length;
       &:hover {
         transform: rotate(45deg);
       }
+    }
+    .no-cover {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      font-weight: 600;
     }
   }
 </style>

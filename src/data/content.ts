@@ -145,7 +145,7 @@ export interface FilterItem {
 }
 export const filterItems: FilterItem[] = [
   // { content: "随笔", dataGroup: "essay" },
-  { content: "踩坑记录", dataGroup: "records" },
+  // { content: "踩坑记录", dataGroup: "records" },
   { content: "技术笔记", dataGroup: "tech" },
   { content: "其他", dataGroup: "other" },
 ];
