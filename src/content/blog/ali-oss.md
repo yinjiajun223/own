@@ -301,6 +301,84 @@ export class AppModule {}
    - 设置合理的签名过期时间
    - 默认设置为1小时，可根据需求调整
 
+## 4. Vercel部署路由配置问题
+
+在将前端和后端项目部署到Vercel时，都遇到了路由访问404的问题。这是因为Vercel的默认路由处理机制与项目的路由系统不完全匹配。
+
+#### 前端项目（Vue3 + Vite）路由问题
+
+**问题描述：**
+- 本地开发环境中，直接访问路由地址（如`http://localhost:3000/upload`）可以正常访问
+- 部署到Vercel后，直接访问路由地址返回404错误
+- 这是因为Vercel默认不知道如何处理Vue Router的历史模式路由
+
+**解决方案：**
+在项目根目录创建`vercel.json`配置文件：
+```json
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+
+**配置说明：**
+- `rewrites`：URL重写规则
+- `source`: 匹配所有的路由请求
+- `destination`: 将所有请求重定向到index.html，让Vue Router接管路由处理
+- 这样配置后，所有的路由请求都会被转发到前端应用的入口文件，由Vue Router进行处理
+
+#### 后端项目（NestJS）路由问题
+
+**问题描述：**
+- 本地开发环境中API接口可以正常访问
+- 部署到Vercel后，API接口返回404错误
+- 这是因为Vercel需要明确知道如何构建和路由NestJS应用
+
+**解决方案：**
+更新后的`vercel.json`配置：
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/main.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/src/main.ts"
+    }
+  ]
+}
+```
+
+**配置说明：**
+1. `version`: 指定Vercel配置版本
+2. `builds`配置：
+   - `src`: 指定NestJS应用的入口文件
+   - `use`: 使用@vercel/node处理Node.js应用
+3. `routes`配置：
+   - `src`: 匹配所有incoming请求
+   - `dest`: 将请求转发到应用入口文件
+
+**注意事项：**
+1. 前端项目：
+   - 确保Vue Router使用的是历史模式（createWebHistory）
+   - 配置后需要重新部署项目
+
+2. 后端项目：
+   - 确保main.ts中正确配置了全局前缀（如果有）
+   - 注意跨域配置（CORS）
+   - 环境变量需要在Vercel平台上配置
+
+这两个配置文件的本质都是处理路由重写，使得Vercel能够正确地将请求转发到应用的对应处理程序。前端项目重写到index.html让Vue Router处理路由，后端项目重写到入口文件让NestJS处理API请求。
+
 ## 总结
 
 在使用阿里云OSS时，除了基本的文件访问配置外，还需要注意部署环境的特殊要求。使用Vercel部署NestJS服务时，正确的配置文件对于成功部署至关重要。
