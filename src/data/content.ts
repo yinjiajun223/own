@@ -13,7 +13,7 @@ interface Nav {
 export const nav: Nav = {
   avatar: "/assets/author.jpg",
   items: [
-    { label: "首页", href: "/", target: "_self" }, // target 为 '_blank' 打开新链接
+    { label: "首页", href: "/", target: "_self" }, // target 为 '_blank' 打开新链接test
     { label: "关于", href: "/about", target: "_self" },
     { label: "博客", href: "/blog", target: "_self" },
   ],
