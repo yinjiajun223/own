@@ -30,7 +30,7 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 3007,
   },
-  site: "https://yinjiajun.cn/",
+  site: "https://blog.yinjiajun.cn/",
   integrations: [sitemap(), tailwind()],
   css: {
     preprocessorOptions: {

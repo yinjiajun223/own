@@ -31,12 +31,12 @@
   {
     "cover": "/assets/cover/tools.png",
     "title": "小工具合集",
-    "desc": "使用AI+Cursor实现的小工具合集",
+    "desc": "Angular学习 + 小工具",
     "category": "other",
-    "tag": "AI",
+    "tag": "Angular",
     "date": "2024-03-15",
     "mark": true,
-    "detail": "https://tools.yinjiajun.cn"
+    "detail": "https://ng.yinjiajun.cn"
   },
   {
     "title": "个人脚手架工具ying-cli",

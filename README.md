@@ -2,7 +2,7 @@
 
 ### 网站预览
 
-预览地址: <a href="https://yinjiajun.cn/" target="_blank">https://yinjiajun.cn/</a>
+预览地址: <a href="https://blog.yinjiajun.cn/" target="_blank">https://blog.yinjiajun.cn/</a>
 
 ### 技术栈
 
