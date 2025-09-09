@@ -5,13 +5,30 @@ interface Props {
   title?: string | undefined;
   description?: string | undefined;
   keywords?: string | undefined;
+  cover?: string | undefined;
 }
-const { title, description, keywords } = Astro.props;
+const site = Astro.site?.href?.replace(/\/$/, "") || "https://blog.yinjiajun.cn";
+const defaultTitle = "Yinjiajun Blog";
+const defaultDesc = "分享前端、全栈、性能优化、工程化与实用工具的技术博客";
+const { title = defaultTitle, description = defaultDesc, keywords = "前端,JavaScript,性能优化,工程化,Blog,Web" , cover} = Astro.props;
+const pageUrl = site + Astro.url.pathname;
+const image = cover ? (cover.startsWith('http') ? cover : site + cover) : site + "/favicon.ico";
 ---
 
 <meta charset="UTF-8" />
 <meta name="description" property="og:description" content={description} />
 <meta name="keywords" content={keywords} />
+<link rel="canonical" href={pageUrl} />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content={defaultTitle} />
+<meta property="og:title" content={title} />
+<meta property="og:url" content={pageUrl} />
+<meta property="og:image" content={image} />
+<meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="alternate" type="application/rss+xml" title={title} href={new URL("rss.xml", Astro.site)} />
 
@@ -21,6 +38,20 @@ const { title, description, keywords } = Astro.props;
 <title>{title}</title>
 
 <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+<meta name="author" content="Yinjiajun" />
+<meta name="theme-color" content="#0f172a" />
+<meta name="robots" content="index,follow" />
+<script type="application/ld+json" is:inline>{JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  author: { '@type': 'Person', name: 'Yinjiajun' },
+  publisher: { '@type': 'Organization', name: 'Yinjiajun Blog', logo: { '@type': 'ImageObject', url: site + '/favicon.ico' } },
+  url: pageUrl,
+  image,
+  inLanguage: 'zh-CN'
+})}</script>
 <script is:inline>
   const getThemePreference = () => {
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
