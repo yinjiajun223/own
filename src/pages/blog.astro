@@ -23,13 +23,156 @@ const projects: CollectionEntry<"blog">[] = (await getCollection("blog")).sort(
             fill="var(--color-100)"></path>
         </svg>
       </SectionHeader>
+      <div class="blog-search-wrapper">
+        <div class="blog-search-box">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" class="search-icon">
+            <path
+              d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+            <path d="M14 14.0001L11.1 11.1001" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <input class="blog-search-input" type="search" placeholder="搜索博客文章..." id="blog-search-input" />
+        </div>
+      </div>
       <section class="border-top">
         <div class="posts">
-          <div class="posts-container">
-            {projects.map((project) => <PostPreview post={project} />)}
+          <div class="posts-container" id="blog-list">
+            {
+              projects.map((project) => (
+                <div class="blog-post-item" data-title={project.data.title} data-description={project.data.description}>
+                  <PostPreview post={project} />
+                </div>
+              ))
+            }
           </div>
         </div>
       </section>
     </main>
   </div>
 </BlogPostLayout>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("blog-search-input");
+    const blogList = document.getElementById("blog-list");
+
+    if (!(searchInput instanceof HTMLInputElement) || !blogList) {
+      return;
+    }
+
+    // 只保存一份初始数据：外层容器（避免选到 PostPreview 里的 .post-item）
+    const postItems = Array.from(blogList.querySelectorAll(".blog-post-item"));
+    const postsData = postItems.map((element) => {
+      return {
+        element,
+        title: String(element.getAttribute("data-title") || "").toLowerCase(),
+        description: String(element.getAttribute("data-description") || "").toLowerCase(),
+      };
+    });
+
+    function filterPosts(rawText) {
+      const searchText = String(rawText || "").toLowerCase().trim();
+
+      for (const { element, title, description } of postsData) {
+        const isMatch =
+          searchText === "" || title.includes(searchText) || description.includes(searchText);
+
+        element.style.display = isMatch ? "" : "none";
+      }
+    }
+
+    function debounce(fn, wait) {
+      let timerId;
+      return function () {
+        const args = arguments;
+        clearTimeout(timerId);
+        timerId = window.setTimeout(function () {
+          fn.apply(null, args);
+        }, wait);
+      };
+    }
+
+    let isComposing = false;
+
+    searchInput.addEventListener("compositionstart", function () {
+      isComposing = true;
+    });
+
+    searchInput.addEventListener("compositionend", function () {
+      isComposing = false;
+      filterPosts(searchInput.value);
+    });
+
+    const debouncedFilter = debounce(function () {
+      if (isComposing) return;
+      filterPosts(searchInput.value);
+    }, 300);
+
+    searchInput.addEventListener("input", function () {
+      if (isComposing) return;
+      debouncedFilter();
+    });
+  });
+</script>
+
+<style lang="scss">
+  .blog-search-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+  }
+
+  .blog-search-box {
+    position: relative;
+    border: 1px solid var(--color-200);
+    background: var(--color-bg);
+    border-radius: 36px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    column-gap: 12px;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    max-width: 600px;
+    transition: all 0.3s ease;
+
+    &:focus-within {
+      border-color: var(--color-blue);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .search-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--color-200);
+      flex-shrink: 0;
+    }
+  }
+
+  .blog-search-input {
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 1rem;
+    color: var(--color-100);
+    transition: 0.15s;
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    background: none;
+    outline: none;
+
+    &::placeholder {
+      color: var(--color-300);
+      transition: 0.15s;
+    }
+
+    &:hover::placeholder {
+      color: var(--color-200);
+    }
+  }
+</style>
