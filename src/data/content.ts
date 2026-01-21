@@ -16,6 +16,7 @@ export const nav: Nav = {
     { label: "首页", href: "/", target: "_self" }, // target 为 '_blank' 打开新链接test
     { label: "关于", href: "/about", target: "_self" },
     { label: "博客", href: "/blog", target: "_self" },
+    { label: "学习记录", href: "/learning", target: "_self" },
   ],
 };
 
@@ -39,6 +40,12 @@ export const blogTdk: SeoTdk = {
   title: "影的小陋室",
   description: "影的小陋室",
   keywords: "影,博客,blog",
+};
+// SEO TDK 学习记录
+export const learningTdk: SeoTdk = {
+  title: "学习记录 - 影的小陋室",
+  description: "记录我的学习过程和成长轨迹",
+  keywords: "学习记录,笔记,成长",
 };
 // SEO TDK 关于
 export const aboutTdk: SeoTdk = {
@@ -115,12 +122,14 @@ interface PageTag {
   index: string;
   about: string;
   blog: string;
+  learning: string;
   project: string;
 }
 export const pageTag: PageTag = {
   index: "PORTFOLIO",
   about: "ABOUT",
   blog: "BLOG",
+  learning: "LEARNING",
   project: "PROJECT",
 };
 
@@ -129,6 +138,7 @@ interface PageDescription {
   index?: string;
   project?: string;
   blog?: string;
+  learning?: string;
   about?: string;
 }
 export const pageDescription: PageDescription = {
@@ -136,6 +146,7 @@ export const pageDescription: PageDescription = {
   project: "这是我的部分项目展示",
   about: "WEB前端开发工程师",
   blog: "这是我的个人笔记和想法， 希望你能够获得帮助！",
+  learning: "记录每周/每天的学习过程，追踪成长轨迹",
 };
 
 // FilterItem 首页作品展示筛选列表

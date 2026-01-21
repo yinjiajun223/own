@@ -1,0 +1,386 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPostLayout from "../layouts/BlogPostLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+const learningRecords: CollectionEntry<"learning">[] = (await getCollection("learning")).sort(
+  (a: CollectionEntry<"learning">, b: CollectionEntry<"learning">) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<BlogPostLayout title="学习记录" description="记录我的学习过程和成长轨迹" keywords="学习,记录,笔记">
+  <div class="post">
+    <main class="post-wrapper about">
+      <SectionHeader tag="LEARNING" description="记录每周/每天的学习过程，追踪成长轨迹" />
+      <section class="border-top">
+        <div class="timeline-container" id="learning-list">
+          {
+            learningRecords.map((record, index) => (
+              <div
+                class="timeline-item blog-post-item"
+                data-title={record.data.title}
+                data-description={record.data.description}
+                style={`animation-delay: ${index * 0.1}s`}
+              >
+                <div class="timeline-marker">
+                  <div class="timeline-dot" />
+                  <div class="timeline-date">{record.data.publishDate.toISOString().split("T")[0]}</div>
+                </div>
+                <div class="timeline-content">
+                  <a href={`/learning/${record.slug}`} class="timeline-card">
+                    <div class="card-header">
+                      <h3>{record.data.title}</h3>
+                      {record.data.tags && (
+                        <div class="tags">
+                          {record.data.tags.slice(0, 3).map((tag) => (
+                            <span class="tag">#{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <p class="description">{record.data.description}</p>
+                    <div class="card-footer">
+                      <span class="read-more">
+                        阅读记录 <span class="arrow">→</span>
+                      </span>
+                      {record.data.read && <span class="read-time">{record.data.read} min read</span>}
+                    </div>
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </main>
+  </div>
+</BlogPostLayout>
+
+<style>
+  .timeline-container {
+    position: relative;
+    max-width: 900px;
+    margin: 4rem auto;
+    padding-left: 2rem;
+  }
+
+  /* 垂直连接线 */
+  .timeline-container::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--color-500) 10%, var(--color-500) 90%, transparent);
+    opacity: 0.15;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: slideIn 0.5s ease-out forwards;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 时间点与日期 */
+  .timeline-marker {
+    position: absolute;
+    left: -6px;
+    top: 0;
+    height: 100%;
+    /* 移除 display:flex 防止影响定位 */
+  }
+
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg-body);
+    border: 2px solid var(--color-500);
+    position: absolute;
+    top: 2rem; /* 对齐卡片顶部附近 */
+    left: 0;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-item:hover .timeline-dot {
+    background: var(--color-100);
+    border-color: var(--color-100);
+    transform: scale(1.3);
+    box-shadow: 0 0 15px rgba(var(--color-100-rgb), 0.5);
+  }
+
+  .timeline-date {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-500);
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+    display: block;
+    position: relative;
+  }
+
+  .timeline-item:hover .timeline-date {
+    color: var(--color-100);
+    opacity: 1;
+  }
+
+  /* 内容卡片 */
+  .timeline-content {
+    position: relative;
+  }
+
+  .timeline-card {
+    display: block;
+    background: rgba(var(--color-999-rgb), 0.03);
+    border: 1px solid rgba(var(--color-500-rgb), 0.1);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(10px);
+  }
+
+  .timeline-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    border-color: rgba(var(--color-100-rgb), 0.3);
+    background: rgba(var(--color-999-rgb), 0.08);
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-header {
+    margin-bottom: 1rem;
+  }
+
+  .card-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--color-100);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  .description {
+    color: var(--color-500);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    opacity: 0.9;
+  }
+
+  .tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    background: rgba(var(--color-500-rgb), 0.1);
+    border-radius: 4px;
+    color: var(--color-500);
+    transition: all 0.2s ease;
+  }
+
+  .timeline-card:hover .tag {
+    background: rgba(var(--color-100-rgb), 0.1);
+    color: var(--color-100);
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(var(--color-500-rgb), 0.15);
+  }
+
+  .read-more {
+    color: var(--color-100);
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-card:hover .read-more {
+    opacity: 1;
+    gap: 10px;
+  }
+
+  .read-time {
+    color: var(--color-500);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+
+  /* 响应式调整 - 桌面端 */
+  @media (min-width: 768px) {
+    .timeline-container {
+      padding-left: 0;
+      margin-top: 6rem;
+    }
+
+    .timeline-container::before {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      width: 50%;
+      padding-left: 0;
+      /* 给中间留出更多空间 */
+      padding-right: 4rem;
+      margin-left: 0;
+      margin-right: auto;
+      margin-bottom: 0; /* 移除底部间距，通过 padding 控制 */
+      padding-bottom: 4rem;
+    }
+
+    .timeline-item:nth-child(even) {
+      margin-left: auto;
+      margin-right: 0;
+      padding-right: 0;
+      padding-left: 4rem;
+      /* 这里不需要 text-align: left 因为默认就是 left */
+    }
+
+    /* 奇数项（左侧）文本右对齐 */
+    .timeline-item:nth-child(odd) {
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(odd) .tags,
+    .timeline-item:nth-child(odd) .card-footer {
+      justify-content: flex-end;
+    }
+
+    .timeline-item:nth-child(odd) .read-more {
+      flex-direction: row-reverse;
+    }
+
+    /* 点的位置 */
+    .timeline-marker {
+      left: auto;
+      right: -7px;
+      top: 0;
+      width: 0;
+    }
+
+    /* 偶数项（右侧）点的定位 */
+    .timeline-item:nth-child(even) .timeline-marker {
+      right: auto;
+      left: -7px;
+    }
+
+    /* 日期: 放在中轴线的另一侧 */
+    .timeline-date {
+      position: absolute;
+      top: 2rem; /* 与点对齐 */
+      /* 宽度足够容纳日期 */
+      width: 150px;
+    }
+
+    /* 奇数项（左侧），日期在右侧 */
+    .timeline-item:nth-child(odd) .timeline-date {
+      right: -190px;
+      text-align: left;
+    }
+
+    /* 偶数项（右侧），日期在左侧 */
+    .timeline-item:nth-child(even) .timeline-date {
+      left: -190px;
+      text-align: right;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("learning-search-input");
+    const learningList = document.getElementById("learning-list");
+
+    if (!(searchInput instanceof HTMLInputElement) || !learningList) {
+      return;
+    }
+
+    const postItems = Array.from(learningList.querySelectorAll(".blog-post-item"));
+    const postsData = postItems.map((element) => {
+      return {
+        element,
+        title: String(element.getAttribute("data-title") || "").toLowerCase(),
+        description: String(element.getAttribute("data-description") || "").toLowerCase(),
+      };
+    });
+
+    function filterPosts(rawText) {
+      const searchText = String(rawText || "")
+        .toLowerCase()
+        .trim();
+
+      for (const { element, title, description } of postsData) {
+        const isMatch = searchText === "" || title.includes(searchText) || description.includes(searchText);
+
+        element.style.display = isMatch ? "" : "none";
+      }
+    }
+
+    function debounce(fn, wait) {
+      let timerId;
+      return function () {
+        const args = arguments;
+        clearTimeout(timerId);
+        timerId = window.setTimeout(function () {
+          fn.apply(null, args);
+        }, wait);
+      };
+    }
+
+    let isComposing = false;
+
+    searchInput.addEventListener("compositionstart", function () {
+      isComposing = true;
+    });
+
+    searchInput.addEventListener("compositionend", function () {
+      isComposing = false;
+      filterPosts(searchInput.value);
+    });
+
+    searchInput.addEventListener(
+      "input",
+      debounce(function () {
+        if (!isComposing) {
+          filterPosts(searchInput.value);
+        }
+      }, 200)
+    );
+  });
+</script>
