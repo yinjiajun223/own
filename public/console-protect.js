@@ -7,6 +7,14 @@
 (function () {
     'use strict';
 
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+        || window.innerWidth <= 768;
+    
+    if (isMobile) {
+        console.log('%c📱 移动端访问：控制台保护已禁用', 'color: #00cc00; font-size: 14px;');
+        return; 
+    }
+
     let allowConsole = false;
     let keySequence = [];
     const secretCode = ['y', 'j', 'j', '2', '2', '3'];
