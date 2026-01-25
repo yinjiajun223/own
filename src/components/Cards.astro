@@ -2,10 +2,31 @@
 import Filter from "../components/Filter.astro";
 import type { CardData } from "../data/types";
 import cardData from "../data/home.json";
+import { getCollection } from "astro:content";
+
+// 获取 LeetCode 题目
+const leetcodeEntries = await getCollection("leetcode");
+
+// 将 LeetCode 题目转换为 CardData 格式
+const leetcodeCards: CardData[] = leetcodeEntries
+  .map((entry) => ({
+    title: `${entry.data.problemNumber}. ${entry.data.title}`,
+    desc: entry.data.description,
+    category: "leetcode",
+    tag: entry.data.difficulty || "Medium",
+    date: entry.data.publishDate.toISOString().split("T")[0],
+    detail: `/leetcode/${entry.slug}`,
+    "cover-desc": `LC #${entry.data.problemNumber}`,
+    mark: false,
+  }))
+  .reverse();
+
+// 合并 home.json 数据和 LeetCode 数据
+const allCards = [...cardData, ...leetcodeCards];
 
 //根据mark排序 mark为true的排在前面
 // 添加原始索引，并根据mark排序，mark为true的排在前面 -- tip（避免页面刷新后排序跟上次不同步）
-const cards: CardData[] = cardData
+const cards: CardData[] = allCards
   .map((item, index) => ({ ...item, originalIndex: index })) // 添加原始索引
   .sort((a, b) => {
     if (a.mark === b.mark) {
@@ -43,7 +64,11 @@ const count = cards.length;
               </div>
             </div>
             <div class="card-body">
-              <a href={card.detail ? card.detail : "javascript:void(0)"} class="card-figure" target={card.detail ? "_blank" : "_self"}>
+              <a
+                href={card.detail ? card.detail : "javascript:void(0)"}
+                class="card-figure"
+                target={card.detail && card.detail.startsWith("http") ? "_blank" : "_self"}
+              >
                 {card?.cover ? (
                   <>
                     <img class="card-figure__img lazy" src={card.cover} loading="lazy" alt="Loading Animations" />
@@ -57,7 +82,7 @@ const count = cards.length;
               <div class="card-detail">
                 <a
                   href={card.detail ? card.detail : "javascript:void(0)"}
-                  target={card.detail ? "_blank" : "_self"}
+                  target={card.detail && card.detail.startsWith("http") ? "_blank" : "_self"}
                   class="card-name card-item__title"
                 >
                   {card.mark && <span class="tag-original">推荐</span>} {card.title}
@@ -68,7 +93,7 @@ const count = cards.length;
                 <a
                   href={card.detail ? card.detail : "javascript:void(0)"}
                   class="card-link card-link__go js-gotip"
-                  target={card.detail ? "_blank" : "_self"}
+                  target={card.detail && card.detail.startsWith("http") ? "_blank" : "_self"}
                 />
               )}
             </div>

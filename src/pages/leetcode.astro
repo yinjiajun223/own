@@ -1,0 +1,156 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPostLayout from "../layouts/BlogPostLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import LeetCodePreview from "../components/LeetCodePreview.astro";
+import { pageTag, pageDescription, leetcodeTdk } from "../data/content";
+
+const leetcodeProblems: CollectionEntry<"leetcode">[] = (await getCollection("leetcode")).sort(
+  (a: CollectionEntry<"leetcode">, b: CollectionEntry<"leetcode">) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<BlogPostLayout title={leetcodeTdk.title || ""} description={leetcodeTdk.description || ""} keywords={leetcodeTdk.keywords || ""}>
+  <div class="post">
+    <main class="post-wrapper about">
+      <SectionHeader tag={pageTag.leetcode} description={pageDescription.leetcode}>
+        <svg class="title-svg" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="10" y="60" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="var(--color-100)"> LEETCODE </text>
+        </svg>
+      </SectionHeader>
+      <div class="blog-search-wrapper">
+        <div class="blog-search-box">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" class="search-icon">
+            <path
+              d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+            <path d="M14 14.0001L11.1 11.1001" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <input class="blog-search-input" type="search" placeholder="搜索 LeetCode 题目..." id="leetcode-search-input" />
+        </div>
+      </div>
+      <section class="border-top">
+        <div class="posts">
+          <div class="posts-container" id="leetcode-list">
+            {
+              leetcodeProblems.map((problem) => (
+                <div class="blog-post-item leetcode-item" data-title={problem.data.title} data-description={problem.data.description}>
+                  <div class="leetcode-card">
+                    {problem.data.difficulty && (
+                      <span class={`difficulty-badge ${problem.data.difficulty.toLowerCase()}`}>{problem.data.difficulty}</span>
+                    )}
+                    <LeetCodePreview post={problem} />
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</BlogPostLayout>
+
+<style lang="scss">
+  .leetcode-item {
+    position: relative;
+  }
+
+  .leetcode-card {
+    position: relative;
+  }
+
+  .difficulty-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .difficulty-badge.easy {
+    background-color: #10b981;
+    color: white;
+  }
+
+  .difficulty-badge.medium {
+    background-color: #f59e0b;
+    color: white;
+  }
+
+  .difficulty-badge.hard {
+    background-color: #ef4444;
+    color: white;
+  }
+
+  .blog-search-wrapper {
+    margin: 2rem 0;
+  }
+
+  .blog-search-box {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-secondary);
+  }
+
+  .blog-search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    &::placeholder {
+      color: var(--color-text-secondary);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("leetcode-search-input") as HTMLInputElement;
+    const leetcodeList = document.getElementById("leetcode-list");
+
+    if (searchInput && leetcodeList) {
+      searchInput.addEventListener("input", function () {
+        const searchTerm = this.value.toLowerCase().trim();
+        const items = leetcodeList.querySelectorAll(".blog-post-item");
+
+        items.forEach((item) => {
+          const title = item.getAttribute("data-title")?.toLowerCase() || "";
+          const description = item.getAttribute("data-description")?.toLowerCase() || "";
+
+          if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            (item as HTMLElement).style.display = "";
+          } else {
+            (item as HTMLElement).style.display = "none";
+          }
+        });
+      });
+    }
+  });
+</script>

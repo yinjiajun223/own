@@ -24,7 +24,22 @@ const learning = defineCollection({
   }),
 });
 
+const leetcode = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    publishDate: z.coerce.date(),
+    problemNumber: z.number(), // 题号
+    tags: z.array(z.string()).optional(),
+    difficulty: z.enum(["Easy", "Medium", "Hard"]).optional(),
+    leetcodeUrl: z.string().optional(),
+    read: z.number().optional(),
+  }),
+});
+
 export const collections = {
   blog,
   learning,
+  leetcode,
 };

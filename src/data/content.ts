@@ -47,6 +47,12 @@ export const learningTdk: SeoTdk = {
   description: "记录我的学习过程和成长轨迹",
   keywords: "学习记录,笔记,成长",
 };
+// SEO TDK LeetCode
+export const leetcodeTdk: SeoTdk = {
+  title: "LeetCode - 影的小陋室",
+  description: "记录LeetCode刷题思路和解题过程",
+  keywords: "LeetCode,算法,刷题,面试",
+};
 // SEO TDK 关于
 export const aboutTdk: SeoTdk = {
   title: "影的小陋室",
@@ -123,6 +129,7 @@ interface PageTag {
   about: string;
   blog: string;
   learning: string;
+  leetcode: string;
   project: string;
 }
 export const pageTag: PageTag = {
@@ -130,6 +137,7 @@ export const pageTag: PageTag = {
   about: "ABOUT",
   blog: "BLOG",
   learning: "LEARNING",
+  leetcode: "LEETCODE",
   project: "PROJECT",
 };
 
@@ -139,6 +147,7 @@ interface PageDescription {
   project?: string;
   blog?: string;
   learning?: string;
+  leetcode?: string;
   about?: string;
 }
 export const pageDescription: PageDescription = {
@@ -147,6 +156,7 @@ export const pageDescription: PageDescription = {
   about: "WEB前端开发工程师",
   blog: "这是我的个人笔记和想法， 希望你能够获得帮助！",
   learning: "记录每周/每天的学习过程，追踪成长轨迹",
+  leetcode: "记录LeetCode刷题思路和解题过程，积累算法经验",
 };
 
 // FilterItem 首页作品展示筛选列表
@@ -158,5 +168,6 @@ export const filterItems: FilterItem[] = [
   // { content: "随笔", dataGroup: "essay" },
   // { content: "踩坑记录", dataGroup: "records" },
   { content: "技术笔记", dataGroup: "tech" },
+  { content: "LeetCode", dataGroup: "leetcode" },
   { content: "其他", dataGroup: "other" },
 ];
