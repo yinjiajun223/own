@@ -4,7 +4,7 @@ dist/
 node_modules/
 .astro/
 *.d.ts
-src/content/**/*.md
+# src/content/**/*.md
 package-lock.json
 public/
 src/assets/
