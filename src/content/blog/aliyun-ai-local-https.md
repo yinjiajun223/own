@@ -121,8 +121,8 @@ HTTPS 的信任建立在 CA 之上，而不是证书本身。
 信任结构应当是：
 
 本地 CA（已被系统信任）
-  ├── dev.example.com
-  └── api.example.com
+├── dev.example.com
+└── api.example.com
 
 ## 最终解决方案：mkcert
 

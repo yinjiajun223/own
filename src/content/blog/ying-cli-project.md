@@ -12,7 +12,9 @@ tags:
 ## 前言
 
 #### 1.什么是脚手架，为什么要学习脚手架开发？
+
 前端脚手架是一种用于快速搭建前端项目基础结构的工具，通过命令行交互的方式帮助开发者减少重复性工作，提高开发效率，掌握前端工程化思想
+
 #### 2.常见的脚手架（@vue/cli、@angular/cli、create-react-app、vite...）
 
 ## 全局安装和命令执行的原理
@@ -20,11 +22,13 @@ tags:
 在开始介绍项目之前，我先说说为什么全局安装后就能在命令行里直接用 `ying-cli` 这个命令。
 
 原来是这样的：
+
 1. 当我们执行 `npm install -g ying-cli` 的时候，npm 会把这个包安装到全局目录下
    - Windows 系统一般在 `C:\\Users\\用户名\\AppData\\Roaming\\npm\\node_modules`
    - Mac/Linux 一般在 `/usr/local/lib/node_modules`
 
 2. 安装的时候 npm 会看我们 package.json 里的 `bin` 字段：
+
    ```json
    {
      "bin": {
@@ -32,6 +36,7 @@ tags:
      }
    }
    ```
+
    这个配置告诉 npm："嘿，帮我在全局目录创建一个叫 `ying-cli` 的命令，指向这个 JS 文件"
 
 3. npm 就会在全局目录的 bin 文件夹里创建一个软链接：
@@ -65,6 +70,7 @@ tags:
 已经有 Vue CLI、Create React App 这些成熟的工具了，为什么还要自己造轮子呢？
 
 主要有这几个原因：
+
 1. 现有的脚手架可能不完全符合我们团队的开发习惯
 2. 想要更灵活的定制能力
 3. 最重要的是...学习嘛，造轮子的过程其实就是学习的过程！
@@ -114,7 +120,8 @@ program
 ```
 
 ### 2. 项目模板管理
-  目前功能已经实现，但是还没有模板
+
+目前功能已经实现，但是还没有模板
 
 <!-- 目前支持两种模板：
 - Vue2 + TypeScript + Vant 的 H5 模板
@@ -148,29 +155,25 @@ import chalk from "chalk";
 import os from "os";
 
 async function server(directory = ".", options = {}) {
-  const {
-    port = 8080,
-    host = "0.0.0.0",
-    open = false,
-  } = options;
+  const { port = 8080, host = "0.0.0.0", open = false } = options;
 
   const app = express();
   const rootDir = path.resolve(process.cwd(), directory);
-  
+
   // 静态文件服务
   app.use(express.static(rootDir));
 
   return new Promise((resolve, reject) => {
     try {
-        const portNumber = parseInt(port, 10);
-        const server = app.listen(portNumber, host, () => {
+      const portNumber = parseInt(port, 10);
+      const server = app.listen(portNumber, host, () => {
         const localIP = getLocalIP();
         const networkAddress = `http://${localIP}:${portNumber}`;
 
         console.log(`${chalk.cyan("Network:")} ${chalk.cyan(networkAddress)}`);
 
         if (open) {
-          import("open").then(module => module.default(localAddress));
+          import("open").then((module) => module.default(localAddress));
         }
 
         resolve(server);
@@ -198,19 +201,19 @@ async function server(directory = ".", options = {}) {
 使用 `inquirer` 来实现命令行交互，让用户选择项目模板：
 
 ```javascript
-const inquirer = require('inquirer');
+const inquirer = require("inquirer");
 
 async function promptTemplate() {
   const { template } = await inquirer.prompt([
     {
-      type: 'list',
-      name: 'template',
-      message: '请选择项目模板：',
+      type: "list",
+      name: "template",
+      message: "请选择项目模板：",
       choices: [
-        { name: 'Vue2 + TS + Vant (H5)', value: 'vue2-h5' },
-        { name: 'Vue2 + TS + Vant (AppWeb)', value: 'vue2-appweb' }
-      ]
-    }
+        { name: "Vue2 + TS + Vant (H5)", value: "vue2-h5" },
+        { name: "Vue2 + TS + Vant (AppWeb)", value: "vue2-appweb" },
+      ],
+    },
   ]);
   return template;
 }

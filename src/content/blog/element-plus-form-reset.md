@@ -8,7 +8,6 @@ tags:
   - 前端开发
 ---
 
-
 ## 问题背景
 
 在使用Element Plus表单组件时，我们经常会遇到`resetFields`方法不生效的问题。这个问题主要出现在以下两种场景：
@@ -62,7 +61,7 @@ const handleEdit = (userData) => {
         formData[key] = userData[key];
       }
     });
-    
+
     // 清除验证状态
     formRef.value?.clearValidate();
   });
@@ -78,7 +77,7 @@ const handleEdit = (userData) => {
 const handleClose = () => {
   // 重置表单
   resetForm();
-  
+
   // 如果是编辑模式，还需要手动清空表单数据
   if (operationType.value === "edit") {
     // 这里必须使用遍历赋值，而不是直接替换对象引用，以保持响应式
@@ -271,4 +270,4 @@ Element Plus表单的resetFields方法不生效问题主要是由于对其工作
 1. [Element Plus官方文档 - Form组件](https://element-plus.org/zh-CN/component/form.html)
 2. [Element Plus GitHub Issues - resetFields问题](https://github.com/element-plus/element-plus/issues/16479)
 3. [Vue 3官方文档 - 响应式API](https://cn.vuejs.org/api/reactivity-core.html)
-</rewritten_file> 
+   </rewritten_file>

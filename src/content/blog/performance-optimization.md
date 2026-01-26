@@ -22,6 +22,7 @@ tags:
 <!-- 使用 CDN 加载 jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 ```
+
 ### 压缩和缩小文件
 
 使用工具如 `UglifyJS` 和 `CSSNano` 来压缩和缩小 JavaScript 和 CSS 文件，减少文件大小。压缩后的文件不仅加载更快，还能减少带宽消耗。
@@ -41,7 +42,7 @@ cssnano styles.css styles.min.css
 懒加载可以推迟加载不在视口内的图像和其他资源，减少初始加载时间。对于长页面或图像密集型网站，懒加载是一个非常有效的优化策略。
 
 ```html
-<img src="image.jpg" loading="lazy" alt="Lazy loaded image">
+<img src="image.jpg" loading="lazy" alt="Lazy loaded image" />
 ```
 
 ## 代码优化
@@ -58,7 +59,7 @@ function updateLayout() {
   ticking = false;
 }
 
-window.addEventListener('scroll', () => {
+window.addEventListener("scroll", () => {
   if (!ticking) {
     requestAnimationFrame(updateLayout);
     ticking = true;
@@ -75,11 +76,11 @@ window.addEventListener('scroll', () => {
 ```javascript
 async function fetchData() {
   try {
-    const response = await fetch('https://api.example.com/data');
+    const response = await fetch("https://api.example.com/data");
     const data = await response.json();
     console.log(data);
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
   }
 }
 ```
@@ -94,23 +95,24 @@ async function fetchData() {
 
 ```html
 <picture>
-  <source srcset="image.webp" type="image/webp">
-  <img src="image.jpg" alt="Optimized image">
+  <source srcset="image.webp" type="image/webp" />
+  <img src="image.jpg" alt="Optimized image" />
 </picture>
 ```
+
 ### 响应式图片
 
 使用 `srcset` 和 `sizes` 属性提供不同分辨率的图片，确保在不同设备上都能加载合适大小的图片。
 
 ```html
-<img src="image-320w.jpg"
-     srcset="image-320w.jpg 320w,
-             image-480w.jpg 480w,
-             image-800w.jpg 800w"
-     sizes="(max-width: 320px) 280px,
+<img
+  src="image-320w.jpg"
+  srcset="image-320w.jpg 320w, image-480w.jpg 480w, image-800w.jpg 800w"
+  sizes="(max-width: 320px) 280px,
             (max-width: 480px) 440px,
             800px"
-     alt="Responsive image">
+  alt="Responsive image"
+/>
 ```
 
 **深入分析：**响应式图片不仅能提升性能，还能改善用户体验，特别是在移动设备上。
@@ -122,4 +124,5 @@ async function fetchData() {
 - **ImageOptim**: 用于压缩和优化图像文件，支持多种格式。
 
 ## 结语
-通过实施这些性能优化技巧，你可以显著提升网站的加载速度和用户体验。持续监控和优化是保持网站性能的关键。希望这篇文章能为你的前端开发工作提供帮助，并在面试中展示你的技术深度。 
+
+通过实施这些性能优化技巧，你可以显著提升网站的加载速度和用户体验。持续监控和优化是保持网站性能的关键。希望这篇文章能为你的前端开发工作提供帮助，并在面试中展示你的技术深度。

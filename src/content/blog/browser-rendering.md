@@ -29,14 +29,14 @@ tags:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-</head>
-<body>
-  <h1>Hello, World!</h1>
-  <p>This is a paragraph.</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+    <p>This is a paragraph.</p>
+  </body>
 </html>
 ```
 
@@ -73,13 +73,13 @@ p {
 重排和重绘是性能优化的重要环节。重排会导致页面重新计算布局，而重绘则是更新元素的外观。
 
 ```javascript
-const element = document.getElementById('myElement');
+const element = document.getElementById("myElement");
 
 // 触发重排
-element.style.width = '100px';
+element.style.width = "100px";
 
 // 触发重绘
-element.style.backgroundColor = 'red';
+element.style.backgroundColor = "red";
 ```
 
 ### 案例 2: 使用 CSS3 动画优化性能
@@ -106,13 +106,13 @@ CSS3 动画通常比 JavaScript 动画更高效，因为它们可以利用 GPU �
 在 JavaScript 中，某些操作会导致浏览器强制同步布局，从而影响性能。避免在同一帧中读取和写入 DOM。
 
 ```javascript
-const element = document.getElementById('myElement');
+const element = document.getElementById("myElement");
 
 // 读取 DOM 属性
 const height = element.offsetHeight;
 
 // 写入 DOM 属性
-element.style.height = height + 'px';
+element.style.height = height + "px";
 ```
 
 ### 案例 4: 使用虚拟 DOM 提升性能
@@ -137,13 +137,13 @@ function MyComponent() {
 
 ```javascript
 function animate() {
-  const element = document.getElementById('myElement');
+  const element = document.getElementById("myElement");
   let start = null;
 
   function step(timestamp) {
     if (!start) start = timestamp;
     const progress = timestamp - start;
-    element.style.transform = 'translateX(' + Math.min(progress / 10, 200) + 'px)';
+    element.style.transform = "translateX(" + Math.min(progress / 10, 200) + "px)";
     if (progress < 2000) {
       window.requestAnimationFrame(step);
     }

@@ -14,12 +14,12 @@
   --gradient-accent: linear-gradient(150deg, var(--gradient-stop-1), var(--gradient-stop-2), var(--gradient-stop-3));
   --gradient-accent-orange: linear-gradient(150deg, #ca7879, var(--accent-regular), var(--accent-dark));
   --gradient-stroke: linear-gradient(180deg, var(--color-900), var(--color-700));
-  --shadow-sm: 0px 6px 3px rgba(9, 11, 17, 0.01), 0px 4px 2px rgba(9, 11, 17, 0.01), 0px 2px 2px rgba(9, 11, 17, 0.02),
-    0px 0px 1px rgba(9, 11, 17, 0.03);
-  --shadow-md: 0px 28px 11px rgba(9, 11, 17, 0.01), 0px 16px 10px rgba(9, 11, 17, 0.03), 0px 7px 7px rgba(9, 11, 17, 0.05),
-    0px 2px 4px rgba(9, 11, 17, 0.06);
-  --shadow-lg: 0px 62px 25px rgba(9, 11, 17, 0.01), 0px 35px 21px rgba(9, 11, 17, 0.05), 0px 16px 16px rgba(9, 11, 17, 0.1),
-    0px 4px 9px rgba(9, 11, 17, 0.12);
+  --shadow-sm:
+    0px 6px 3px rgba(9, 11, 17, 0.01), 0px 4px 2px rgba(9, 11, 17, 0.01), 0px 2px 2px rgba(9, 11, 17, 0.02), 0px 0px 1px rgba(9, 11, 17, 0.03);
+  --shadow-md:
+    0px 28px 11px rgba(9, 11, 17, 0.01), 0px 16px 10px rgba(9, 11, 17, 0.03), 0px 7px 7px rgba(9, 11, 17, 0.05), 0px 2px 4px rgba(9, 11, 17, 0.06);
+  --shadow-lg:
+    0px 62px 25px rgba(9, 11, 17, 0.01), 0px 35px 21px rgba(9, 11, 17, 0.05), 0px 16px 16px rgba(9, 11, 17, 0.1), 0px 4px 9px rgba(9, 11, 17, 0.12);
 }
 :root {
   --color-0: #000;
@@ -78,9 +78,11 @@
   --radius: 6px;
   --radius-normal: 8px;
   --radius-large: 12px;
-  --font-system: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Lantinghei SC", "Microsoft YaHei", "HanHei SC", "Helvetica Neue",
-    "Open Sans", "Hiragino Sans GB", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", Arial, SimSun, sans-serif;
-  --font-body: "Inter", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "MiSans", "Lantinghei SC", "Noto Sans SC",
+  --font-system:
+    system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Lantinghei SC", "Microsoft YaHei", "HanHei SC", "Helvetica Neue", "Open Sans",
+    "Hiragino Sans GB", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", Arial, SimSun, sans-serif;
+  --font-body:
+    "Inter", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "MiSans", "Lantinghei SC", "Noto Sans SC",
     "Microsoft YaHei", "HanHei SC", "Helvetica Neue", "Open Sans", "Hiragino Sans GB", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", Arial, SimSun,
     sans-serif;
   --font-brand: "Inter", "Noto Sans SC", var(--font-system);
@@ -168,11 +170,14 @@
   --gradient-subtle: linear-gradient(150deg, var(--color-900) 19%, var(--color-999) 81%);
   --gradient-accent-orange: linear-gradient(150deg, #ca7879, var(--accent-regular), var(--accent-light));
   --gradient-stroke: linear-gradient(180deg, var(--color-600), var(--color-800));
-  --shadow-sm: 0px 6px 3px rgba(255, 255, 255, 0.01), 0px 4px 2px rgba(255, 255, 255, 0.01), 0px 2px 2px rgba(255, 255, 255, 0.02),
+  --shadow-sm:
+    0px 6px 3px rgba(255, 255, 255, 0.01), 0px 4px 2px rgba(255, 255, 255, 0.01), 0px 2px 2px rgba(255, 255, 255, 0.02),
     0px 0px 1px rgba(255, 255, 255, 0.03);
-  --shadow-md: 0px 28px 11px rgba(255, 255, 255, 0.01), 0px 16px 10px rgba(255, 255, 255, 0.03), 0px 7px 7px rgba(255, 255, 255, 0.05),
+  --shadow-md:
+    0px 28px 11px rgba(255, 255, 255, 0.01), 0px 16px 10px rgba(255, 255, 255, 0.03), 0px 7px 7px rgba(255, 255, 255, 0.05),
     0px 2px 4px rgba(255, 255, 255, 0.06);
-  --shadow-lg: 0px 62px 25px rgba(255, 255, 255, 0.01), 0px 35px 21px rgba(255, 255, 255, 0.05), 0px 16px 16px rgba(255, 255, 255, 0.1),
+  --shadow-lg:
+    0px 62px 25px rgba(255, 255, 255, 0.01), 0px 35px 21px rgba(255, 255, 255, 0.05), 0px 16px 16px rgba(255, 255, 255, 0.1),
     0px 4px 9px rgba(255, 255, 255, 0.12);
 }
 .darkmode--activated {

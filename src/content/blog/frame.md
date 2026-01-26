@@ -21,35 +21,32 @@ tags:
 **最初的“能用就行”版本：**  
 我尝试直接在组件中动态加载脚本，并强行修改 `window.Vue`。虽然功能跑通了，但带来了两个无法忍受的**架构崩坏**：
 
--   **全局污染严重**：主应用不得不为了迁就插件而污染全局环境，`window` 对象变得脏乱差。
--   **样式灾难**：插件加载后，它自带的 CSS 直接覆盖了主应用精心配置的主题色（CSS 变量被冲刷），导致整个系统 UI 变得不伦不类。为了修复它，我不得不写大量的 `!important`，维护成本极高。
+- **全局污染严重**：主应用不得不为了迁就插件而污染全局环境，`window` 对象变得脏乱差。
+- **样式灾难**：插件加载后，它自带的 CSS 直接覆盖了主应用精心配置的主题色（CSS 变量被冲刷），导致整个系统 UI 变得不伦不类。为了修复它，我不得不写大量的 `!important`，维护成本极高。
 
 **我的目标**：既要用这个插件，又要让主应用保持“洁癖”，同时还得让插件长得和主应用一样（样式统一）。
 
-* * *
+---
 
 ## 🔵 思考与方案选型
 
 面对这种“毒瘤”插件，通常有几种隔离方案：
 
 1.  **Shadow DOM**：
-
-    -   *优点*：样式隔离得很好。
-    -   *缺点*：JS 环境依然共享。如果插件依赖全局 `window.Vue`，Shadow DOM 救不了JS 污染的问题。
+    - _优点_：样式隔离得很好。
+    - _缺点_：JS 环境依然共享。如果插件依赖全局 `window.Vue`，Shadow DOM 救不了JS 污染的问题。
 
 1.  **微前端（qiankun/wujie）** ：
-
-    -   *优点*：隔离彻底。
-    -   *缺点*：为了一个弹窗插件上微前端，属于“大炮打蚊子”，增加了不必要的工程复杂度。
+    - _优点_：隔离彻底。
+    - _缺点_：为了一个弹窗插件上微前端，属于“大炮打蚊子”，增加了不必要的工程复杂度。
 
 1.  **Iframe 沙箱（最终选择）** ：
-
-    -   *优点*：JS 环境物理隔离（绝对纯净），CSS 样式绝对隔离。
-    -   *挑战*：Iframe 里的样式无法继承主应用，会导致“割裂感”；父子通信稍微麻烦一点。
+    - _优点_：JS 环境物理隔离（绝对纯净），CSS 样式绝对隔离。
+    - _挑战_：Iframe 里的样式无法继承主应用，会导致“割裂感”；父子通信稍微麻烦一点。
 
 **最终决策**：采用 **Iframe + PostMessage + 动态样式注入** 的方案。把“脏”代码关进 Iframe 这个小黑屋，同时通过“传送门”把主应用的主题样式送进去。
 
-* * *
+---
 
 ## 🟠 实施过程
 
@@ -79,9 +76,9 @@ HTML
 
 **通信协议设计：**
 
--   `INIT_PICK`：主应用 -> Iframe（发送配置 + **当前主题样式**）
--   `PICK_SUBMIT`：Iframe -> 主应用（返回选人结果）
--   `PICK_LOADED`：Iframe -> 主应用（加载完成，关闭 Loading）
+- `INIT_PICK`：主应用 -> Iframe（发送配置 + **当前主题样式**）
+- `PICK_SUBMIT`：Iframe -> 主应用（返回选人结果）
+- `PICK_LOADED`：Iframe -> 主应用（加载完成，关闭 Loading）
 
 ### 3. 解决“割裂感”：样式穿越
 
@@ -96,7 +93,7 @@ HTML
 
 这样，**无论主应用怎么换肤，Iframe 里的插件都会自动由内而外地“变色”，完全看不出是 Iframe！**
 
-* * *
+---
 
 ## 🔴 踩坑与至暗时刻
 
@@ -131,7 +128,7 @@ createApp({
 1.  **绑定失效**：在 Vue 3 `setup` 模式下，`$data` 的行为与 Options API 不同，直接解构的数据并没有正确地通过 `v-bind` 传递给子组件。
 1.  **FOUC（无样式闪烁）** ：我最初是先 `initApp` 再 `injectStyle`，导致组件计算高度时样式还没加载，布局错乱。
 
-* * *
+---
 
 ## 🟢 最终的完美形态
 
@@ -151,7 +148,7 @@ JavaScript
 window.addEventListener('message', ({ data }) => {
   if (data.type === 'INIT_PICK') {
     // 1. 先穿衣服 (注入样式)
-    injectStyles(data.styles); 
+    injectStyles(data.styles);
     // 2. 再见人 (初始化组件)
     initPickApp(data.config);
   }
@@ -179,10 +176,10 @@ TypeScript
 
 const onIframeLoad = () => {
     // 1. 提取当前系统的 CSS 变量
-    const cssText = getInjectedStyles(); 
+    const cssText = getInjectedStyles();
     // 2. 准备配置
     const config = await prepareConfig();
-    
+
     // 3. 打包发送，一气呵成
     iframeWin.postMessage({
         type: 'INIT_PICK',
@@ -191,7 +188,7 @@ const onIframeLoad = () => {
 }
 ```
 
-* * *
+---
 
 ## 🟣 总结
 

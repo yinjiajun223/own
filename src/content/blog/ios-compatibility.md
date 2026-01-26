@@ -13,12 +13,14 @@ tags:
 在移动端项目发布过程中，遇到了一个特定的兼容性问题：
 
 **需求描述**：用户点击卡片时需要：
+
 1. 发送数据埋点请求
 2. 新窗口打开目标页面
 
 **测试环境**：
+
 - ✅ 浏览器模拟手机环境：正常工作
-- ✅ 真机各种浏览器：正常工作  
+- ✅ 真机各种浏览器：正常工作
 - ✅ Android设备WebView：正常工作
 - ❌ iOS设备的QQ/微信WebView：接口请求报错
 
@@ -93,8 +95,8 @@ tags:
       .then((data) => console.log(data))
       .catch((error) => alert(`报错: ${error.message}`));
 
-    const isIOSInAppBrowser = /iPad|iPhone|iPod/.test(navigator.userAgent) && 
-                              (/MicroMessenger/.test(navigator.userAgent) || /QQ\//.test(navigator.userAgent));
+    const isIOSInAppBrowser =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && (/MicroMessenger/.test(navigator.userAgent) || /QQ\//.test(navigator.userAgent));
 
     if (isIOSInAppBrowser) {
       window.location.href = "https://www.example.com";
@@ -119,7 +121,7 @@ tags:
   jumpLink.addEventListener("click", function (event) {
     if (navigator.sendBeacon) {
       // 使用 sendBeacon 发送数据埋点
-      const data = JSON.stringify({ action: 'click', target: 'example-link' });
+      const data = JSON.stringify({ action: "click", target: "example-link" });
       navigator.sendBeacon("http://127.0.0.1:3000/hello", data);
     } else {
       // 降级方案：使用 fetch
@@ -129,8 +131,8 @@ tags:
         .catch((error) => alert(`报错: ${error.message}`));
     }
 
-    const isIOSInAppBrowser = /iPad|iPhone|iPod/.test(navigator.userAgent) && 
-                              (/MicroMessenger/.test(navigator.userAgent) || /QQ\//.test(navigator.userAgent));
+    const isIOSInAppBrowser =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && (/MicroMessenger/.test(navigator.userAgent) || /QQ\//.test(navigator.userAgent));
 
     if (isIOSInAppBrowser) {
       window.location.href = "https://www.example.com";
@@ -181,20 +183,24 @@ tags:
 ## 总结
 
 ### 核心问题
+
 iOS WebView的安全策略会阻止在用户交互事件中同时执行异步网络请求和页面跳转操作，这是为了防止恶意脚本和保护用户体验。
 
 ### 解决思路
+
 1. **问题定位**：通过对比不同环境的表现，确定问题出现在iOS WebView的特定安全限制上
 2. **方案探索**：从修改跳转方式到环境判断，逐步缩小问题范围
 3. **最终方案**：使用 `sendBeacon` API，专门为页面卸载场景设计的可靠数据发送方案
 
 ### 最佳实践
+
 1. **优先使用 sendBeacon**：对于数据埋点等不需要响应的场景，优先选择 `sendBeacon`
 2. **提供降级方案**：考虑兼容性，为不支持的浏览器提供 `fetch` 降级
 3. **环境检测**：针对不同的WebView环境采用不同的跳转策略
 4. **测试覆盖**：确保在真实设备的各种WebView环境中进行充分测试
 
 ### 适用场景
+
 - 移动端H5页面的数据埋点
 - iOS/Android WebView中的页面跳转
 - 需要在页面跳转前发送数据的场景

@@ -45,7 +45,7 @@ tags:
    - 添加跨域规则：
      - 来源：允许的域名
      - 允许Methods：GET、POST、PUT等
-     - 允许Headers：*
+     - 允许Headers：\*
      - 暴露Headers：ETag等
      - 缓存时间：根据需求设置
 
@@ -56,10 +56,12 @@ tags:
 在实践过程中遇到的第一个重要问题是：通过阿里云OSS默认生成的文件URL无法在浏览器中直接预览。
 
 **原因：**
+
 - 出于安全考虑，OSS在使用默认Bucket域名访问文件时，会强制添加下载响应头
 - 这导致浏览器会强制下载文件，而不是预览
 
 **解决方案：**
+
 - 使用自定义域名访问OSS文件
 - 自定义域名访问不会强制添加下载响应头
 - 这样就可以实现在浏览器中直接预览文件
@@ -69,6 +71,7 @@ tags:
 在实现OSS表单上传时，需要搭建后端服务来处理签名等操作。我选择使用NestJS并部署到Vercel，但遇到了构建配置的问题。
 
 **默认构建失败原因：**
+
 1. Vercel默认会寻找项目根目录下的入口文件（如index.js）
 2. NestJS项目编译后的文件在dist目录下，默认配置无法正确识别入口文件
 3. NestJS的路由处理方式需要特殊配置才能在Vercel上正常工作
@@ -78,23 +81,24 @@ tags:
 
 ```json
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "dist/main.js",  // 指定NestJS编译后的入口文件
-        "use": "@vercel/node"   // 使用Node.js运行时
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",         // 匹配所有路由
-        "dest": "dist/main.js"  // 将请求转发到入口文件
-      }
-    ]
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/main.js", // 指定NestJS编译后的入口文件
+      "use": "@vercel/node" // 使用Node.js运行时
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)", // 匹配所有路由
+      "dest": "dist/main.js" // 将请求转发到入口文件
+    }
+  ]
 }
 ```
 
 **配置说明：**
+
 1. `version: 2`: 使用Vercel最新的部署配置版本
 2. `builds`配置：
    - `src`: 指定构建的源文件，这里是NestJS编译后的主入口文件
@@ -117,11 +121,14 @@ tags:
 在本地开发过程中遇到了一个特殊的跨域问题：本地开发环境使用HTTP协议（如http://localhost:3000），而OSS上传地址是HTTPS协议，导致跨域请求失败。
 
 **问题表现：**
+
 - 浏览器控制台报错：`Access to XMLHttpRequest at 'https://xxx.oss-cn-xxx.aliyuncs.com' from origin 'http://localhost:3000' has been blocked by CORS policy`
 - 上传请求被浏览器拦截，无法完成文件上传
 
 **解决方案：**
+
 1. OSS Bucket跨域设置：
+
    ```
    来源（Origins）：添加 http://localhost:3000
    允许Methods：GET, POST, PUT, DELETE, HEAD
@@ -179,9 +186,9 @@ OSS_BUCKET=your_bucket_name
 
 ```typescript
 // src/services/oss.service.ts
-import { Injectable } from '@nestjs/common';
-import * as OSS from 'ali-oss';
-import { ConfigService } from '@nestjs/config';
+import { Injectable } from "@nestjs/common";
+import * as OSS from "ali-oss";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class OssService {
@@ -189,28 +196,28 @@ export class OssService {
 
   constructor(private configService: ConfigService) {
     this.client = new OSS({
-      region: configService.get('OSS_REGION'),
-      accessKeyId: configService.get('OSS_ACCESS_KEY_ID'),
-      accessKeySecret: configService.get('OSS_ACCESS_KEY_SECRET'),
-      bucket: configService.get('OSS_BUCKET'),
+      region: configService.get("OSS_REGION"),
+      accessKeyId: configService.get("OSS_ACCESS_KEY_ID"),
+      accessKeySecret: configService.get("OSS_ACCESS_KEY_SECRET"),
+      bucket: configService.get("OSS_BUCKET"),
     });
   }
 
   // 生成上传签名
-  async generateUploadSignature(dir: string = ''): Promise<any> {
+  async generateUploadSignature(dir: string = ""): Promise<any> {
     try {
       const date = new Date();
       date.setHours(date.getHours() + 1); // 签名1小时内有效
       const policy = {
         expiration: date.toISOString(), // 设置policy过期时间
         conditions: [
-          ['content-length-range', 0, 1048576000], // 设置上传文件的大小限制
-          ['starts-with', '$key', dir], // 限制上传文件的路径前缀
+          ["content-length-range", 0, 1048576000], // 设置上传文件的大小限制
+          ["starts-with", "$key", dir], // 限制上传文件的路径前缀
         ],
       };
 
       const formData = await this.client.calculatePostSignature(policy);
-      const host = `https://${this.configService.get('OSS_BUCKET')}.${this.configService.get('OSS_REGION')}.aliyuncs.com`;
+      const host = `https://${this.configService.get("OSS_BUCKET")}.${this.configService.get("OSS_REGION")}.aliyuncs.com`;
 
       return {
         expire: date.getTime(),
@@ -221,7 +228,7 @@ export class OssService {
         dir,
       };
     } catch (error) {
-      throw new Error('生成上传签名失败：' + error.message);
+      throw new Error("生成上传签名失败：" + error.message);
     }
   }
 
@@ -233,7 +240,7 @@ export class OssService {
       });
       return url;
     } catch (error) {
-      throw new Error('获取文件访问URL失败：' + error.message);
+      throw new Error("获取文件访问URL失败：" + error.message);
     }
   }
 }
@@ -243,20 +250,20 @@ export class OssService {
 
 ```typescript
 // src/controllers/upload.controller.ts
-import { Controller, Get, Query } from '@nestjs/common';
-import { OssService } from '../services/oss.service';
+import { Controller, Get, Query } from "@nestjs/common";
+import { OssService } from "../services/oss.service";
 
-@Controller('upload')
+@Controller("upload")
 export class UploadController {
   constructor(private readonly ossService: OssService) {}
 
-  @Get('signature')
-  async getUploadSignature(@Query('dir') dir: string = '') {
+  @Get("signature")
+  async getUploadSignature(@Query("dir") dir: string = "") {
     return await this.ossService.generateUploadSignature(dir);
   }
 
-  @Get('url')
-  async getFileUrl(@Query('objectName') objectName: string) {
+  @Get("url")
+  async getFileUrl(@Query("objectName") objectName: string) {
     return await this.ossService.getFileUrl(objectName);
   }
 }
@@ -266,10 +273,10 @@ export class UploadController {
 
 ```typescript
 // src/app.module.ts
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { UploadController } from './controllers/upload.controller';
-import { OssService } from './services/oss.service';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { UploadController } from "./controllers/upload.controller";
+import { OssService } from "./services/oss.service";
 
 @Module({
   imports: [
@@ -308,12 +315,14 @@ export class AppModule {}
 #### 前端项目（Vue3 + Vite）路由问题
 
 **问题描述：**
+
 - 本地开发环境中，直接访问路由地址（如`http://localhost:3000/upload`）可以正常访问
 - 部署到Vercel后，直接访问路由地址返回404错误
 - 这是因为Vercel默认不知道如何处理Vue Router的历史模式路由
 
 **解决方案：**
 在项目根目录创建`vercel.json`配置文件：
+
 ```json
 {
   "rewrites": [
@@ -326,6 +335,7 @@ export class AppModule {}
 ```
 
 **配置说明：**
+
 - `rewrites`：URL重写规则
 - `source`: 匹配所有的路由请求
 - `destination`: 将所有请求重定向到index.html，让Vue Router接管路由处理
@@ -334,12 +344,14 @@ export class AppModule {}
 #### 后端项目（NestJS）路由问题
 
 **问题描述：**
+
 - 本地开发环境中API接口可以正常访问
 - 部署到Vercel后，API接口返回404错误
 - 这是因为Vercel需要明确知道如何构建和路由NestJS应用
 
 **解决方案：**
 更新后的`vercel.json`配置：
+
 ```json
 {
   "version": 2,
@@ -359,6 +371,7 @@ export class AppModule {}
 ```
 
 **配置说明：**
+
 1. `version`: 指定Vercel配置版本
 2. `builds`配置：
    - `src`: 指定NestJS应用的入口文件
@@ -368,6 +381,7 @@ export class AppModule {}
    - `dest`: 将请求转发到应用入口文件
 
 **注意事项：**
+
 1. 前端项目：
    - 确保Vue Router使用的是历史模式（createWebHistory）
    - 配置后需要重新部署项目

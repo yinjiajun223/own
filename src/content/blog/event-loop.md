@@ -22,12 +22,12 @@ JavaScript 是一种**单线程**语言，这意味着它一次只能执行一�
 
 ```javascript
 function foo() {
-  console.log('foo');
+  console.log("foo");
 }
 
 function bar() {
   foo();
-  console.log('bar');
+  console.log("bar");
 }
 
 bar();
@@ -39,13 +39,13 @@ bar();
 任务队列用于存储待处理的异步任务，如 `setTimeout`、`Promise` 回调等。当调用栈为空时，事件循环会从任务队列中取出任务并执行。
 
 ```javascript
-console.log('Start');
+console.log("Start");
 
 setTimeout(() => {
-  console.log('Timeout');
+  console.log("Timeout");
 }, 0);
 
-console.log('End');
+console.log("End");
 // 输出顺序：Start, End, Timeout
 ```
 
@@ -62,17 +62,17 @@ JavaScript 中的任务分为**微任务**（Microtask）和**宏任务**（Macr
 微任务包括 `Promise` 回调、`MutationObserver` 等。微任务会在当前宏任务执行完毕后立即执行。
 
 ```javascript
-console.log('Start');
+console.log("Start");
 
 setTimeout(() => {
-  console.log('Timeout');
+  console.log("Timeout");
 }, 0);
 
 Promise.resolve().then(() => {
-  console.log('Promise');
+  console.log("Promise");
 });
 
-console.log('End');
+console.log("End");
 // 输出顺序：Start, End, Promise, Timeout
 ```
 
@@ -81,69 +81,73 @@ console.log('End');
 ### 案例 1: 理解异步任务的执行顺序
 
 ```javascript
-console.log('Start');
+console.log("Start");
 
 setTimeout(() => {
-  console.log('Timeout 1');
+  console.log("Timeout 1");
 }, 0);
 
-Promise.resolve().then(() => {
-  console.log('Promise 1');
-}).then(() => {
-  console.log('Promise 2');
-});
+Promise.resolve()
+  .then(() => {
+    console.log("Promise 1");
+  })
+  .then(() => {
+    console.log("Promise 2");
+  });
 
 setTimeout(() => {
-  console.log('Timeout 2');
+  console.log("Timeout 2");
 }, 0);
 
-console.log('End');
+console.log("End");
 // 输出顺序：Start, End, Promise 1, Promise 2, Timeout 1, Timeout 2
 ```
 
 ### 案例 2: 微任务与宏任务的交替执行
 
 ```javascript
-console.log('Start');
+console.log("Start");
 
 setTimeout(() => {
-  console.log('Timeout 1');
+  console.log("Timeout 1");
   Promise.resolve().then(() => {
-    console.log('Promise 1');
+    console.log("Promise 1");
   });
 }, 0);
 
 setTimeout(() => {
-  console.log('Timeout 2');
+  console.log("Timeout 2");
 }, 0);
 
-console.log('End');
+console.log("End");
 // 输出顺序：Start, End, Timeout 1, Promise 1, Timeout 2
 ```
 
 ### 案例 3: 复杂的异步任务执行顺序
 
 ```javascript
-console.log('Start');
+console.log("Start");
 
 setTimeout(() => {
-  console.log('Timeout 1');
+  console.log("Timeout 1");
 }, 0);
 
 setTimeout(() => {
-  console.log('Timeout 2');
+  console.log("Timeout 2");
   Promise.resolve().then(() => {
-    console.log('Promise 1');
+    console.log("Promise 1");
   });
 }, 0);
 
-Promise.resolve().then(() => {
-  console.log('Promise 2');
-}).then(() => {
-  console.log('Promise 3');
-});
+Promise.resolve()
+  .then(() => {
+    console.log("Promise 2");
+  })
+  .then(() => {
+    console.log("Promise 3");
+  });
 
-console.log('End');
+console.log("End");
 // 输出顺序：Start, End, Promise 2, Promise 3, Timeout 1, Timeout 2, Promise 1
 ```
 

@@ -73,11 +73,12 @@ const projects: CollectionEntry<"blog">[] = (await getCollection("blog")).sort(
     });
 
     function filterPosts(rawText) {
-      const searchText = String(rawText || "").toLowerCase().trim();
+      const searchText = String(rawText || "")
+        .toLowerCase()
+        .trim();
 
       for (const { element, title, description } of postsData) {
-        const isMatch =
-          searchText === "" || title.includes(searchText) || description.includes(searchText);
+        const isMatch = searchText === "" || title.includes(searchText) || description.includes(searchText);
 
         element.style.display = isMatch ? "" : "none";
       }
