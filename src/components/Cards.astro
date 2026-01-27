@@ -9,6 +9,7 @@ const leetcodeEntries = await getCollection("leetcode");
 
 // 将 LeetCode 题目转换为 CardData 格式
 const leetcodeCards: CardData[] = leetcodeEntries
+  .sort((a, b) => b.data.problemNumber - a.data.problemNumber)
   .map((entry) => ({
     title: `${entry.data.problemNumber}. ${entry.data.title}`,
     desc: entry.data.description,
@@ -18,8 +19,7 @@ const leetcodeCards: CardData[] = leetcodeEntries
     detail: `/leetcode/${entry.slug}`,
     "cover-desc": `LC #${entry.data.problemNumber}`,
     mark: false,
-  }))
-  .reverse();
+  }));
 
 // 合并 home.json 数据和 LeetCode 数据
 const allCards = [...cardData, ...leetcodeCards];
