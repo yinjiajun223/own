@@ -1,13 +1,14 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import Back from "../../components/Back.astro";
 
 interface Props {
   entry: CollectionEntry<"leetcode">;
 }
 
 export async function getStaticPaths() {
-  const leetcode = await getCollection("leetcode");
+  const leetcode = (await getCollection("leetcode")).filter((entry) => entry.data.solved !== false);
   return leetcode.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
@@ -19,6 +20,7 @@ const { Content } = await entry.render();
 ---
 
 <BlogPostLayout title={entry.data.title} description={entry.data.description}>
+  <Back href="/leetcode" />
   <div class="post article">
     <main class="post-wrapper">
       <div class="section-header">

@@ -35,6 +35,7 @@ const leetcode = defineCollection({
     difficulty: z.enum(["Easy", "Medium", "Hard"]).optional(),
     leetcodeUrl: z.string().optional(),
     read: z.number().optional(),
+    solved: z.boolean().default(true), // 是否已解决，默认为 true
   }),
 });
 

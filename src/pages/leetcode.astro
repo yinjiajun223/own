@@ -5,9 +5,9 @@ import SectionHeader from "../components/SectionHeader.astro";
 import LeetCodePreview from "../components/LeetCodePreview.astro";
 import { pageTag, pageDescription, leetcodeTdk } from "../data/content";
 
-const leetcodeProblems: CollectionEntry<"leetcode">[] = (await getCollection("leetcode")).sort(
-  (a: CollectionEntry<"leetcode">, b: CollectionEntry<"leetcode">) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
-);
+const leetcodeProblems: CollectionEntry<"leetcode">[] = (await getCollection("leetcode"))
+  .filter((problem) => problem.data.solved !== false) // 只显示已解决的题目
+  .sort((a: CollectionEntry<"leetcode">, b: CollectionEntry<"leetcode">) => a.data.problemNumber - b.data.problemNumber);
 ---
 
 <BlogPostLayout title={leetcodeTdk.title || ""} description={leetcodeTdk.description || ""} keywords={leetcodeTdk.keywords || ""}>

@@ -61,14 +61,14 @@ const learningRecords: CollectionEntry<"learning">[] = (await getCollection("lea
     position: relative;
     max-width: 900px;
     margin: 4rem auto;
-    padding-left: 2rem;
+    padding-left: 3rem; /* 增加左侧留白 */
   }
 
   /* 垂直连接线 */
   .timeline-container::before {
     content: "";
     position: absolute;
-    left: 0;
+    left: 1rem; /* 移动端时间线位置 */
     top: 0;
     bottom: 0;
     width: 2px;
@@ -78,8 +78,8 @@ const learningRecords: CollectionEntry<"learning">[] = (await getCollection("lea
 
   .timeline-item {
     position: relative;
-    padding-left: 2.5rem;
-    margin-bottom: 2rem;
+    padding-left: 2rem; /* 减少左侧内边距 */
+    margin-bottom: 3rem; /* 增加底部间距 */
     opacity: 0;
     animation: slideIn 0.5s ease-out forwards;
   }
@@ -98,10 +98,11 @@ const learningRecords: CollectionEntry<"learning">[] = (await getCollection("lea
   /* 时间点与日期 */
   .timeline-marker {
     position: absolute;
-    left: -6px;
+    left: -2.5rem; /* 移动端定位 */
     top: 0;
-    height: 100%;
-    /* 移除 display:flex 防止影响定位 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .timeline-dot {
@@ -110,11 +111,10 @@ const learningRecords: CollectionEntry<"learning">[] = (await getCollection("lea
     border-radius: 50%;
     background: var(--bg-body);
     border: 2px solid var(--color-500);
-    position: absolute;
-    top: 2rem; /* 对齐卡片顶部附近 */
-    left: 0;
+    position: relative; /* 改为相对定位 */
     z-index: 2;
     transition: all 0.3s ease;
+    margin-bottom: 0.5rem; /* 日期和点之间的间距 */
   }
 
   .timeline-item:hover .timeline-dot {
@@ -126,12 +126,13 @@ const learningRecords: CollectionEntry<"learning">[] = (await getCollection("lea
 
   .timeline-date {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.7rem; /* 移动端稍小 */
     color: var(--color-500);
     opacity: 0.8;
-    margin-bottom: 0.5rem;
-    display: block;
-    position: relative;
+    white-space: nowrap;
+    writing-mode: vertical-rl; /* 移动端垂直显示 */
+    text-orientation: mixed;
+    letter-spacing: 1px;
   }
 
   .timeline-item:hover .timeline-date {
@@ -256,11 +257,10 @@ const learningRecords: CollectionEntry<"learning">[] = (await getCollection("lea
     .timeline-item {
       width: 50%;
       padding-left: 0;
-      /* 给中间留出更多空间 */
       padding-right: 4rem;
       margin-left: 0;
       margin-right: auto;
-      margin-bottom: 0; /* 移除底部间距，通过 padding 控制 */
+      margin-bottom: 0;
       padding-bottom: 4rem;
     }
 
@@ -269,7 +269,6 @@ const learningRecords: CollectionEntry<"learning">[] = (await getCollection("lea
       margin-right: 0;
       padding-right: 0;
       padding-left: 4rem;
-      /* 这里不需要 text-align: left 因为默认就是 left */
     }
 
     /* 奇数项（左侧）文本右对齐 */
@@ -286,26 +285,36 @@ const learningRecords: CollectionEntry<"learning">[] = (await getCollection("lea
       flex-direction: row-reverse;
     }
 
-    /* 点的位置 */
+    /* 桌面端时间标记定位 */
     .timeline-marker {
       left: auto;
       right: -7px;
       top: 0;
-      width: 0;
+      width: auto;
+      flex-direction: column;
     }
 
-    /* 偶数项（右侧）点的定位 */
     .timeline-item:nth-child(even) .timeline-marker {
       right: auto;
       left: -7px;
     }
 
-    /* 日期: 放在中轴线的另一侧 */
+    /* 桌面端点的定位 */
+    .timeline-dot {
+      position: absolute;
+      top: 2rem;
+      margin-bottom: 0;
+    }
+
+    /* 桌面端日期: 横向显示，放在中轴线的另一侧 */
     .timeline-date {
       position: absolute;
-      top: 2rem; /* 与点对齐 */
-      /* 宽度足够容纳日期 */
+      top: 2rem;
       width: 150px;
+      writing-mode: horizontal-tb; /* 桌面端横向显示 */
+      text-orientation: mixed;
+      font-size: 0.8rem;
+      letter-spacing: normal;
     }
 
     /* 奇数项（左侧），日期在右侧 */

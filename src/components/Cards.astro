@@ -4,8 +4,8 @@ import type { CardData } from "../data/types";
 import cardData from "../data/home.json";
 import { getCollection } from "astro:content";
 
-// 获取 LeetCode 题目
-const leetcodeEntries = await getCollection("leetcode");
+// 获取 LeetCode 题目（只显示已解决的）
+const leetcodeEntries = (await getCollection("leetcode")).filter((entry) => entry.data.solved !== false);
 
 // 将 LeetCode 题目转换为 CardData 格式
 const leetcodeCards: CardData[] = leetcodeEntries
