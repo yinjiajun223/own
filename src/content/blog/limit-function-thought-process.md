@@ -254,7 +254,7 @@ function limitFunctionFixed(fn, m, n) {
   return function (...args) {
     const now = Date.now();
 
-    if (windowStart === 0 || now - windowStart >= m) {
+    if (now - windowStart >= m) {
       windowStart = now;
       callCount = 0;
     }
@@ -269,7 +269,7 @@ function limitFunctionFixed(fn, m, n) {
 
 这版的逻辑是：
 
-1. 第一次成功调用时，开启一个窗口。
+1. 第一次调用时会自然开启一个窗口，之后只有超过窗口时长才会整体切到下一个窗口。
 2. 在这个窗口的 $m$ 毫秒内，只允许最多执行 $n$ 次。
 3. 一旦超过窗口时长，就整体开启下一个窗口，并把计数归零。
 
